@@ -1,3 +1,4 @@
+# Install the moments package
 get_data_frame_summary <- function(df) {
   library(moments)
   
@@ -66,15 +67,7 @@ result
 
 ########################################################### How to use on a list of data frames
 
-# Generate fake data frames
-set.seed(123)
-df1 <- data.frame(numeric_col = rnorm(100),
-                  categorical_col = sample(letters[1:5], 100, replace = TRUE),
-                  character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
-                  date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
-                  time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
-                  numeric_col_na = c(rnorm(50), rep(NA, 50)))
-
+# Generate more fake data frames
 df2 <- data.frame(numeric_col = rnorm(100),
                   categorical_col = sample(letters[1:5], 100, replace = TRUE),
                   character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
@@ -89,7 +82,8 @@ df3 <- data.frame(numeric_col = rnorm(100),
                   time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
                   numeric_col_na = c(rnorm(50), rep(NA, 50)))
 
+# Combine all fake data into a list
 df_list <- list(df1 = df1, df2 = df2, df3 = df3)
 
-# Use the function on the fake data set
+# Use the function on a list of df
 results_list <- lapply(df_list, get_data_frame_summary)
