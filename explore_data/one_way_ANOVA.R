@@ -11,9 +11,7 @@ one_way_ANOVA <- function(df) {
       if (p_value > 0) {
         results_list[[paste0(factor, "_", num_var)]] <- data.frame(
           variable = factor,
-          variable_type = "factor",
           dependent_variable = num_var,
-          dependent_variable_type = "numeric",
           p_value = p_value
         )
       }
