@@ -1,3 +1,4 @@
+# Source: https://easystats.github.io/correlation/
 
 library(easystats)
 library(BayesFactor)
@@ -48,4 +49,7 @@ iris %>%
 iris %>%
   correlation(partial = FALSE, multilevel = TRUE) %>%
   summary()
+
+
+
 
