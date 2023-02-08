@@ -3,6 +3,7 @@ library(broom)
 library(ggfortify)
 library(shiny)
 library(DT)
+library(plotly)
 
 ui <- fluidPage(
   titlePanel("Air Quality Model"),
@@ -19,7 +20,7 @@ ui <- fluidPage(
     ),
     mainPanel(
       tabsetPanel(
-        tabPanel("Scatterplot", plotOutput("scatterplot")),
+        tabPanel("Scatterplot", plotlyOutput("scatterplot")),
         tabPanel("Table", DT::dataTableOutput("reg_table")),
         tabPanel("Assumptions", plotOutput("diagnostic"))
       )
@@ -41,7 +42,7 @@ server <- function(input, output) {
   })
   
   # View model
-  output$scatterplot <- renderPlot({
+  output$scatterplot <- renderPlotly({
     p <- ggplot(filtered_data(), aes_string(input$x, input$y)) +
       geom_point()
     
@@ -54,7 +55,8 @@ server <- function(input, output) {
                            slope = coef(model())[2], col = "red")
     }
     
-    p
+    gg <- ggplotly(p)
+    gg
   })
   
   # Regression table
@@ -68,5 +70,6 @@ server <- function(input, output) {
     autoplot(model())
   })
 }
+
 
 shinyApp(ui, server)
