@@ -1,5 +1,4 @@
 
-
 # Source: https://easystats.github.io/correlation/
 
 library(easystats)
@@ -51,7 +50,5 @@ iris %>%
 iris %>%
   correlation(partial = FALSE, multilevel = TRUE) %>%
   summary()
-
-
 
 
