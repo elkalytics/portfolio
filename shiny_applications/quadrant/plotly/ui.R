@@ -1,3 +1,8 @@
+library(shiny)
+library(ggplot2)
+library(readxl)
+library(plotly)
+
 shinyUI(fluidPage(
   titlePanel("Rescaled Scatter Plot with Loess Smooth"),
   sidebarLayout(
@@ -7,7 +12,7 @@ shinyUI(fluidPage(
       selectInput("y", "Select Y variable:", "")
     ),
     mainPanel(
-      plotOutput("scatterplot")
+      plotlyOutput("scatterplot")
     )
   )
 ))

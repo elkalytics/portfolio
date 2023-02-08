@@ -2,6 +2,7 @@
 library(shiny)
 library(ggplot2)
 library(readxl)
+library(plotly)
 
 shinyServer(function(input, output, session) {
   data <- reactive({
@@ -18,7 +19,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$scatterplot <- renderPlot({
+  output$scatterplot <- renderPlotly({
     if(is.null(data())) return()
     x <- data()[[input$x]]
     y <- data()[[input$y]]
@@ -33,14 +34,10 @@ shinyServer(function(input, output, session) {
     y_rescaled <- (y - mean(y)) / sd(y)
     
     # Create the scatter plot with a loess smooth
-    ggplot(data.frame(x_rescaled, y_rescaled), aes(x_rescaled, y_rescaled)) +
-      geom_point() +
-      geom_smooth(method = "loess") +
-      geom_hline(yintercept = 0, size = 2) +
-      geom_vline(xintercept = 0, size = 2) +
-      xlab("Rescaled x") +
-      ylab("Rescaled y") +
-      coord_equal()
+    plot_ly(data.frame(x_rescaled, y_rescaled), x = x_rescaled, y = y_rescaled, type = "scatter", mode = "markers") %>%
+      add_trace(type = "scatter", mode = "lines", line = list(smooth = TRUE)) %>%
+      layout(xaxis = list(zeroline = TRUE, zerolinecolor = "black", zerolinewidth = 2),
+             yaxis = list(zeroline = TRUE, zerolinecolor = "black", zerolinewidth = 2))
   })
   
   observe({
@@ -49,4 +46,3 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "y", choices = names(data()), selected = names(data())[2])
   })
 })
-
