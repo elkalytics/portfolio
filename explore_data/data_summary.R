@@ -87,3 +87,26 @@ df_list <- list(df1 = df1, df2 = df2, df3 = df3)
 
 # Use the function on a list of df
 results_list <- lapply(df_list, get_data_frame_summary)
+
+
+########################################################### Get summary statistics for each level of a group
+get_data_frame_summary_by_group <- function(df, group) {
+  library(moments)
+  
+  if (is.null(group)) {
+    return(get_data_frame_summary(df))
+  }
+  
+  result_list <- list()
+  
+  levels <- unique(df[, group])
+  for (level in levels) {
+    level_df <- df[df[, group] == level, ]
+    result_list[[as.character(level)]] <- get_data_frame_summary(level_df)
+  }
+  
+  return(result_list)
+}
+
+# Use the function to save a list of summary statistics for each level of a variable in a data frame
+get_data_frame_summary_by_group(df, "categorical_col") -> result_list
