@@ -102,16 +102,6 @@ get_data_frame_summary <- function(df, group = NULL) {
   return(result_list)
 }
 
-# Make data
-set.seed(123)
-df <- data.frame(numeric_col = rnorm(100),
-                 categorical_col = sample(letters[1:5], 100, replace = TRUE),
-                 character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
-                 date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
-                 time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
-                 numeric_col_na = c(rnorm(50), rep(NA, 50)))
-
-
 ## Use the function on the fake data set
 # result <- get_data_frame_summary(mtcars)
 ## Use function across a variable
