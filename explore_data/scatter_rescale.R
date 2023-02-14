@@ -18,8 +18,8 @@ plot_rescaled <- function(x, y){
 
 
 # Generate example data
-x <- rnorm(100)
-y <- x + rnorm(100, mean = 0, sd = 0.5)
+# x <- rnorm(100)
+# y <- x + rnorm(100, mean = 0, sd = 0.5)
 
 # Call the function
-plot_rescaled(x, y)
+# plot_rescaled(x, y)
