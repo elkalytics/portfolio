@@ -1,3 +1,4 @@
+
 -- Sample a random 10% from a data table
 
 WITH cte AS (

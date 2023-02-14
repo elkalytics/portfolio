@@ -1,4 +1,6 @@
+
 -- SQL loop inner join for tables ending with "_final" which contain "index_var"
+
 
 DECLARE @table_name VARCHAR(100)
 DECLARE @sql_query VARCHAR(MAX)

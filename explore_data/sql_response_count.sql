@@ -1,3 +1,4 @@
+
 -- SQL query a table to determine if there is no response (0), a single value (1), or multiple values
 -- Script will count the number of responses if more than one
 

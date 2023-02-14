@@ -1,3 +1,4 @@
+
 -- SQL server descriptive query
 
 DECLARE @table_name VARCHAR(255);

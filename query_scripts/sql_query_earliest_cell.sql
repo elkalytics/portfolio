@@ -1,3 +1,4 @@
+
 -- SQL query earliest non-null value for each cell based on a system_date field
 
 WITH cte AS (
