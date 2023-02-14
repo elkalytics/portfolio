@@ -1,5 +1,5 @@
-# Example T-SQL query that fuzzy joins on character strings and 
-# the nearest date between two tables by
+-- Example T-SQL query that fuzzy joins on character strings and 
+-- the nearest date between two tables by
 
 WITH cte AS (
   SELECT a.group_number, a.character_field, b.date_field,

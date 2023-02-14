@@ -1,5 +1,5 @@
-# Dynamic T-SQL to query descriptives for every variable
-# Not tested/run
+-- Dynamic T-SQL to query descriptives for every variable
+-- Not tested/run
 
 DECLARE @sql NVARCHAR(MAX) = '';
 DECLARE @columns NVARCHAR(MAX) = '';

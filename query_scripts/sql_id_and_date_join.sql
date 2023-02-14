@@ -1,4 +1,4 @@
-# Join two tables using an ID and a date if the date is +/- 7 days
+-- Join two tables using an ID and a date if the date is +/- 7 days
 SELECT 
   t1.*, 
   t2.*

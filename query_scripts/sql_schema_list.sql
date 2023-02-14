@@ -1,4 +1,5 @@
-# SQL server get list of tables
+
+-- SQL server get list of tables
 
 SELECT table_name
 FROM information_schema.tables

@@ -1,4 +1,5 @@
-# SQL server descriptive query
+
+-- SQL server descriptive query
 
 DECLARE @table_name VARCHAR(255);
 DECLARE @query VARCHAR(MAX);

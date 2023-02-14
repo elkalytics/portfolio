@@ -1,6 +1,6 @@
-# Query min and max from table using a dynamic query
-# Avoid specifying all the names
-# Syntax for SQL server
+-- Query min and max from table using a dynamic query
+-- Avoid specifying all the names
+-- Syntax for SQL server
 
 DECLARE @sql NVARCHAR(MAX);
 SET @sql = N'';
