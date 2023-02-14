@@ -1,6 +1,6 @@
-# T-SQL descriptive statistic examples
-# Need better calculations for skewness and kurtosis
-# Probably better to do those in R
+-- T-SQL descriptive statistic examples
+-- Need better calculations for skewness and kurtosis
+-- Probably better to do those in R
 
 WITH Data AS (
   SELECT Value, ROW_NUMBER() OVER (ORDER BY Value) AS RowNum

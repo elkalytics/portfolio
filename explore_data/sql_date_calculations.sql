@@ -1,4 +1,4 @@
-# Calculate distance between dates (fields ending with "_dt") which have the same name between the two data tables
+-- Calculate distance between dates (fields ending with "_dt") which have the same name between the two data tables
 
 DECLARE @sql NVARCHAR(MAX);
 SET @sql = N'';

@@ -1,6 +1,6 @@
-# Example of querying using a common table expression
-# Grouping data by company and state, and suming all numeric fields
-# falling between specific dates
+-- Example of querying using a common table expression
+-- Grouping data by company and state, and suming all numeric fields
+-- falling between specific dates
 
 WITH cte AS (
   SELECT company, state, SUM(CASE WHEN data_type = 'numeric' THEN value END) as sum_numeric_values

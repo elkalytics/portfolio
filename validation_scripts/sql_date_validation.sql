@@ -1,4 +1,4 @@
-# Identifies date problems
+-- Identifies date problems
 
 DECLARE @date_column_name NVARCHAR(100);
 
