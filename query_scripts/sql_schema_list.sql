@@ -1,3 +1,4 @@
+
 -- SQL server get list of tables
 
 SELECT table_name

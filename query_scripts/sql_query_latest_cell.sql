@@ -1,3 +1,4 @@
+
 -- SQL query most recent (based on system_date) the non-null value for each cell
 
 WITH cte AS (
