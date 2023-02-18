@@ -1,4 +1,3 @@
-
 # Load library
 library(dplyr)
 
@@ -19,4 +18,3 @@ df_list <- lapply(box_office_all, function(nested_list) {
     bind_rows()
 }) %>%
   bind_rows()
-
