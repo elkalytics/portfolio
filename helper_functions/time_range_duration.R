@@ -32,26 +32,12 @@ time_range_duration <- function(data, time_range_col) {
   seconds <- round(duration_seconds, digits = 0)
   minutes <- round(seconds / 60, digits = 0)
   hours <- round(duration_seconds / 3600, digits = 0)
-  days <- round(duration_seconds / 86400, digits = 0)
-  weeks <- round(duration_seconds / 604800, digits = 0)
-  months <- round(duration_seconds / (30.44*86400), digits = 0)
-  quarters <- round(duration_seconds / (91.31*86400), digits = 0)
-  years <- round(duration_seconds / (365.25*86400), digits = 0)
-  
-  # Add the calculated columns to the data set.
-  suffixes <- c("_seconds", "_minutes", "_hours", "_days", "_weeks", "_months", "_quarters", "_years")
   for (suffix in suffixes) {
     col_name <- paste0(names(data)[col_index], suffix)
     data[non_na_rows, col_name] <- switch(suffix,
                                           "_seconds" = seconds,
                                           "_minutes" = minutes,
-                                          "_hours" = hours,
-                                          "_days" = days,
-                                          "_weeks" = weeks,
-                                          "_months" = months,
-                                          "_quarters" = quarters,
-                                          "_years" = years
-    )
+                                          "_hours" = hours)
   }
   
   # Return the updated data set.
