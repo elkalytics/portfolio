@@ -31,6 +31,7 @@ library(GPArotation)
 
 data(bfi)
 
+
 # Define UI
 ui <- fluidPage(
   
@@ -76,7 +77,6 @@ server <- function(input, output) {
       na.omit(bfi[,c(1:9)])
     }
   })
-  
   
   output$items <- renderUI({
     items <- names(data())
