@@ -1,4 +1,4 @@
-## Hosted here: https://www.shinyapps.io/admin/#/dashboard
+# Hosted: https://jchase.shinyapps.io/psychometrics/
 
 ## Create fake survey data set
 # set.seed(123)
@@ -28,6 +28,8 @@ library(see)
 library(psych)
 library(DT)
 library(GPArotation)
+
+data(bfi)
 
 # Define UI
 ui <- fluidPage(
@@ -68,9 +70,13 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   data <- reactive({
-    req(input$file)
-    read.csv(input$file$datapath)
+    if (!is.null(input$file)) {
+      read.csv(input$file$datapath, header = TRUE)
+    } else {
+      na.omit(bfi[,c(1:9)])
+    }
   })
+  
   
   output$items <- renderUI({
     items <- names(data())
