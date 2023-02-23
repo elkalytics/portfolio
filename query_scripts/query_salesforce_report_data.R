@@ -1,7 +1,7 @@
 # Function to grab data from salesforce report
 # Assumes valid session that is authenticated and has permission
 
-library(rsalesforce)
+library(salesforcer)
 
 # Define function to query report data in batches
 query_report_data <- function(report_id, session) {
