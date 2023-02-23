@@ -32,9 +32,6 @@ time_range_duration <- function(data, time_range_col) {
   seconds <- round(duration_seconds, digits = 0)
   minutes <- round(seconds / 60, digits = 0)
   hours <- round(duration_seconds / 3600, digits = 0)
-  
-  # Add the calculated columns to the data set.
-  suffixes <- c("_seconds", "_minutes", "_hours")
   for (suffix in suffixes) {
     col_name <- paste0(names(data)[col_index], suffix)
     data[non_na_rows, col_name] <- switch(suffix,
@@ -49,8 +46,8 @@ time_range_duration <- function(data, time_range_col) {
 
 
 ## Example usage:
-data <- data.frame(id = 1:5, time_range = c("9:00 AM - 10:00 AM", "9:00 PM - 3:00 AM", "8:30 AM - 12:15 PM", NA, "7:00 PM - 11:30 PM"))
-data <- time_range_duration(data, "time_range")
+# data <- data.frame(id = 1:5, time_range = c("9:00 AM - 10:00 AM", "9:00 PM - 3:00 AM", "8:30 AM - 12:15 PM", NA, "7:00 PM - 11:30 PM"))
+# data <- time_range_duration(data, "time_range")
 
 ## Review
 # head(data)
