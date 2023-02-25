@@ -4,6 +4,7 @@
 # Load packages
 library(parallel)
 library(memoise)
+library(doParallel)
 
 # Save function
 adstock_vectorized <- function(x, lag, decay) {
