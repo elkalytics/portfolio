@@ -7,15 +7,10 @@ library(dplyr)
 
 # Save function
 merge_dataframes <- function(df_list, unique_id) {
-  # Check that unique_id column exists in all data frames
-  if (!all(unique_id %in% names(df_list[[1]]))) {
-    stop("Unique ID column not found in all data frames")
-  }
-  # Combine data frames and stack variables with same name
-  merged_data <- bind_rows(df_list, .id = "df_id") %>%
-    group_by(!!sym(unique_id)) %>%
-    summarise(across(everything(), ~ first(na.omit(.))))
-  return(merged_data)
+  stopifnot(all(unique_id %in% names(df_list[[1]])))
+  bind_rows(df_list, .id = "df_id") %>%
+    group_by(.data[[unique_id]]) %>%
+    summarise(across(everything(), ~first(coalesce(., NA))))
 }
 
 ## Example data frames

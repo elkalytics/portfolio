@@ -1,55 +1,98 @@
+# Optimized code for date feature engineering
+# Calculates leap year separately to work on larger data
+# If day value is missing (month year) it assumes 1st of month for all values
 
 # Load packages
 library(lubridate)
 library(tidyverse)
 library(tis)
 
+# Pre-calculate days in month and year
+month_lengths <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+year_lengths <- rep(c(365, 366), each = 365)
+
 # Function for date feature engineering
 date_features <- function(date, date_format = "%Y-%m-%d") {
   
-  # Convert date to YYYY-MM-DD format if necessary
-  date <- as.Date(strptime(date, format = date_format))
-  date_format <- "%Y-%m-%d"
+  # Add default day value of 1 if necessary
+  if (length(strsplit(date, "-")[[1]]) == 2) {
+    date <- paste0(date, "-01")
+  }
   
-  # Extract year, month, day of the week, day of the month, day of the year
+  # Convert date to specified format
+  date <- lubridate::parse_date_time(date, orders = date_format)
+  
+  # Extract year and month
   year <- as.numeric(format(date, "%Y"))
   month <- as.numeric(format(date, "%m"))
-  day_of_week <- wday(date, label = TRUE)
-  day_of_month <- as.numeric(format(date, "%d"))
-  day_of_year <- as.numeric(format(date, "%j"))
   
-  # Calculate week of the month, week of the year, and day of the quarter
-  week_of_month <- ceiling(day_of_month / 7)
-  week_of_year <- as.numeric(week(date))
-  day_of_quarter <- as.numeric(day_of_year - (as.numeric(quarter(date, with_year = TRUE)) - 1) * 91)
+  # Extract day of the week if available, otherwise set to NA
+  ifelse(is.na(wday(date, label = TRUE)),
+         day_of_week <- NA,
+         day_of_week <- wday(date, label = TRUE))
   
-  # Calculate month of the quarter and quarter of the year
-  month_of_quarter <- as.numeric(ceiling(month / 3))
-  quarter_of_year <- as.numeric(quarter(date, with_year = FALSE))
+  # Extract day of the month if available, otherwise set to NA
+  ifelse(is.na(format(date, "%d")),
+         day_of_month <- NA,
+         day_of_month <- as.numeric(format(date, "%d")))
   
-  # Calculate day of week as a percentage of that week
-  day_of_week_pct <- day_of_month / 7
+  # Extract day of the year if available, otherwise set to NA
+  ifelse(is.na(format(date, "%j")),
+         day_of_year <- NA,
+         day_of_year <- as.numeric(format(date, "%j")))
   
-  # Calculate day of month as a percentage of that month
-  month_length <- as.numeric(days_in_month(date))
-  day_of_month_pct <- day_of_month / month_length
+  # Calculate week of the month if available, otherwise set to NA
+  ifelse(is.na(day_of_month),
+         week_of_month <- NA,
+         week_of_month <- ceiling(day_of_month / 7))
   
-  # Calculate day of year as a percentage of that year
-  year_length <- as.numeric(ifelse(leap_year(year), 366, 365))
-  day_of_year_pct <- day_of_year / year_length
+  # Calculate week of the year if available, otherwise set to NA
+  ifelse(is.na(week(date)),
+         week_of_year <- NA,
+         week_of_year <- as.numeric(week(date)))
+  
+  # Calculate day of the quarter if available, otherwise set to NA
+  ifelse(is.na(day_of_year),
+         day_of_quarter <- NA,
+         day_of_quarter <- as.numeric(day_of_year - (as.numeric(quarter(date, with_year = TRUE)) - 1) * 91))
+  
+  # Calculate month of the quarter if available, otherwise set to NA
+  ifelse(is.na(month),
+         month_of_quarter <- NA,
+         month_of_quarter <- as.numeric(ceiling(month / 3)))
+  
+  # Calculate quarter of the year if available, otherwise set to NA
+  ifelse(is.na(quarter(date, with_year = FALSE)),
+         quarter_of_year <- NA,
+         quarter_of_year <- as.numeric(quarter(date, with_year = FALSE)))
+  
+  # Calculate day of week as a percentage of that week if available, otherwise set to NA
+  ifelse(is.na(day_of_month),
+         day_of_week_pct <- NA,
+         day_of_week_pct <- day_of_month / 7)
+  
+  # Calculate day of month as a percentage of that month if available, otherwise set to NA
+  ifelse(is.na(day_of_month) | is.na(month_lengths[month]),
+         day_of_month_pct <- NA,
+         day_of_month_pct <- day_of_month / month_lengths[month])
+  
+  # Calculate day of year as a percentage of that year if available, otherwise set to NA
+  ifelse(is.na(day_of_year) | is.na(year_lengths[leap_year(year) + 1]),
+         day_of_year_pct <- NA,
+         day_of_year_pct <- day_of_year / year_lengths[leap_year(year) + 1])
   
   # Check if date is a US holiday
-  is_holiday <- isHoliday(date, businessOnly = TRUE)
+  is_holiday <- tis::isHoliday(date, businessOnly = TRUE)
   
   # Check if date is a US business day
-  is_business <- isBusinessDay(date)
+  is_business <- tis::isBusinessDay(date)
   
   # Return result as a data frame
   data.frame(
     year = year,
     year_month = format(date, "%Y-%m"),
     month = month,
-    day_of_week = day_of_week,
+    day_of_week = as.character(day_of_week),
     week_of_month = week_of_month,
     week_of_year = week_of_year,
     day_of_quarter = day_of_quarter,
@@ -63,7 +106,12 @@ date_features <- function(date, date_format = "%Y-%m-%d") {
   )
 }
 
+## Example on date
+# date_features("2023-03-03")
 
+## Example on date with different format
+# date_features("03/03/2023", date_format = "%m/%d/%Y")
 
-## Example
-# date_features("2023-02-14")
+## Example on incomplete date
+# date_features("2023-03")
+
