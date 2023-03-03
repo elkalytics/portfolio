@@ -18,6 +18,7 @@ merge_dataframes <- function(df_list, unique_id) {
   return(merged_data)
 }
 
+
 ## Example data frames
 # df1 <- data.frame(id = c(1, 2, 3), var1 = c("a", "b", "c"), var2 = c(4, 5, 6))
 # df2 <- data.frame(id = c(4, 5, 6), var1 = c("d", "e", "f"), var3 = c(7, 8, 9))
