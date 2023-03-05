@@ -1,3 +1,20 @@
+#' Summarize data frame statistics
+#' 
+#' This function calculates summary statistics for a data frame, including
+#' data type, mean, median, mode, standard deviation, kurtosis, skewness, and 
+#' sum, as well as the minimum and maximum values, number of NAs, and percentage
+#' of non-null responses. It can also group the summary statistics by a specified
+#' variable.
+#' 
+#' This function is meant to replace the pair of functions in the 'data_summary' script.
+#' The user can get both statistics by group (if they select a grouping variable), as well
+#' as statistics for the entire table.
+#' 
+#' @param df a data frame
+#' @param group a variable to group the data frame by (optional)
+#' @return a data frame or a list of data frames
+#' @importFrom moments kurtosis skewness
+#' @export
 get_data_frame_summary <- function(df, group = NULL) {
   library(moments)
   
@@ -101,9 +118,3 @@ get_data_frame_summary <- function(df, group = NULL) {
   
   return(result_list)
 }
-
-## Use the function on the fake data set
-# result <- get_data_frame_summary(mtcars)
-## Use function across a variable
-# result_list <- get_data_frame_summary(mtcars, "carb")
-

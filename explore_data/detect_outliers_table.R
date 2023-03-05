@@ -1,7 +1,36 @@
-# Extension of detect_outliers function
-# Detects outliers for all numeric variables in data frame
-# Saves tagged output
-
+#' Extension of detect_outliers function
+#' Detects outliers for all numeric variables in data frame
+#' Saves tagged output
+#'
+#' @param data a data.frame object containing the data
+#' @param z_thresh a numeric value representing the z-score threshold. Default is 1.96.
+#' @param tukey_mult a numeric value representing the Tukey multiplier. Default is 1.5.
+#' @param mahalanobis_thresh a numeric value representing the Mahalanobis distance threshold. Default is 0.95.
+#' @param grubbs_thresh a numeric value representing the Grubbs threshold. Default is 0.05.
+#' @param mad_mult a numeric value representing the MAD multiplier. Default is 3.
+#' @param lof_minPts a numeric value representing the minimum number of points to be considered in a neighborhood for LOF. Default is 6.
+#'
+#' @return a data.frame object with additional columns for each outlier detection method for all numeric variables in data
+#'
+#' @examples
+#' # Generate example data
+#' set.seed(123)
+#' example_data <- data.frame(
+#'   A = rnorm(100, 10, 2),
+#'   B = rnorm(100, 20, 5),
+#'   C = rnorm(100, 30, 10)
+#' )
+#' example_data[c(25, 50, 75), "B"] <- c(40, 10, 35)
+#'
+#' # Use function
+#' results <- detect_outliers_table(example_data)
+#'
+#' # Review results
+#' head(results)
+#'
+#' @importFrom dbscan lof
+#' @importFrom stats cov mahalanobis mean median pt quantile sd
+#' @importFrom utils ifelse complete.cases
 detect_outliers_table <- function(data, z_thresh = 1.96, tukey_mult = 1.5, mahalanobis_thresh = qchisq(0.95, ncol(data)), grubbs_thresh = 0.05, mad_mult = 3, lof_minPts = 6) {
   
   # Initialize output data frame
@@ -87,5 +116,3 @@ detect_outliers_table <- function(data, z_thresh = 1.96, tukey_mult = 1.5, mahal
   # Return results
   return(results)
 }
-
-    

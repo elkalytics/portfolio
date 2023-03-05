@@ -1,8 +1,24 @@
-# Function to save barplot for every numeric variable in table
-# User specifies data and X variable they want the mean of Y across
-# Plots will save with variable names 'outcome_by_X'
-# Use getwd() to determine where they are saved or setwd() to change directory
-
+#' Save barplots for every numeric variable in data set by specified X variable
+#' 
+#' This function creates a barplot for every numeric variable in the data set, where
+#' the mean of Y is calculated across each level of a specified X variable. The plots 
+#' are saved with variable names 'outcome_by_X' in the working directory or a user 
+#' specified directory using setwd(). 
+#'
+#' @param data A data frame.
+#' @param x_var The name of the X variable to calculate means of Y across. Must be a 
+#'   column name in \code{data}.
+#' 
+#' @examples
+#' set.seed(123)
+#' data <- data.frame(
+#'   X = sample(letters[1:5], 100, replace = TRUE),
+#'   Y = rnorm(100),
+#'   Z = rpois(100, 5)
+#' )
+#' save_barplots(data, "X")
+#' 
+#' @export
 save_barplots <- function(data, x_var) {
   # Select the specified X variable and all numeric variables in the data set
   numeric_vars <- names(data)[sapply(data, is.numeric)]
@@ -36,14 +52,3 @@ save_barplots <- function(data, x_var) {
     dev.off()
   }
 }
-
-## Example data set
-# set.seed(123)
-# data <- data.frame(
-#   X = sample(letters[1:5], 100, replace = TRUE),
-#   Y = rnorm(100),
-#   Z = rpois(100, 5)
-# )
-
-# save_barplots(data, "X")
-

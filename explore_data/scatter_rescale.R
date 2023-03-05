@@ -1,6 +1,22 @@
-library(ggplot2)
-
+#' Rescaled Scatter Plot
+#'
+#' This function creates a scatter plot of two variables that have been rescaled so they have similar scales centered at 0.
+#'
+#' @param x a numeric vector of values for the x-axis
+#' @param y a numeric vector of values for the y-axis
+#'
+#' @return a ggplot object
+#'
+#' @import ggplot2
+#' @export
+#'
+#' @examples
+#' x <- rnorm(100)
+#' y <- x + rnorm(100, mean = 0, sd = 0.5)
+#' plot_rescaled(x, y)
 plot_rescaled <- function(x, y){
+  library(ggplot2)
+  
   # Rescale the variables so they have similar scales centered at 0
   x_rescaled <- (x - mean(x)) / sd(x)
   y_rescaled <- (y - mean(y)) / sd(y)
@@ -15,11 +31,3 @@ plot_rescaled <- function(x, y){
     ylab("Rescaled y") +
     coord_equal()
 }
-
-
-# Generate example data
-# x <- rnorm(100)
-# y <- x + rnorm(100, mean = 0, sd = 0.5)
-
-# Call the function
-# plot_rescaled(x, y)

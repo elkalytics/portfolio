@@ -1,4 +1,55 @@
-# Install the moments package
+#' Get summary statistics for each column of a data frame
+#'
+#' This function takes a data frame as input and returns summary statistics
+#' for each column of the data frame. The summary statistics include the column name,
+#' data type, mean, median, mode, sample standard deviation, population standard deviation,
+#' kurtosis, skewness, sum, absolute sum, minimum value, maximum value, number of NAs, and percentage
+#' of non-null responses.
+#' 
+#' A secondary function for obtaining these values for every level of a group is also included.
+#'
+#' @param df A data frame.
+#' 
+#' @return A data frame containing the summary statistics for each column of the input data frame.
+#'
+#' @import moments
+#'
+#' @examples
+#' # Generate fake data set
+#' set.seed(123)
+#' df <- data.frame(numeric_col = rnorm(100),
+#'                  categorical_col = sample(letters[1:5], 100, replace = TRUE),
+#'                  character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
+#'                  date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
+#'                  time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
+#'                  numeric_col_na = c(rnorm(50), rep(NA, 50)))
+#'
+#' # Use the function on the fake data set
+#' result <- get_data_frame_summary(df)
+#' result
+#' 
+#' # Generate more fake data frames
+#' df2 <- data.frame(numeric_col = rnorm(100),
+#'                   categorical_col = sample(letters[1:5], 100, replace = TRUE),
+#'                   character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
+#'                   date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
+#'                   time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
+#'                   numeric_col_na = c(rnorm(50), rep(NA, 50)))
+#'
+#' df3 <- data.frame(numeric_col = rnorm(100),
+#'                   categorical_col = sample(letters[1:5], 100, replace = TRUE),
+#'                   character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
+#'                   date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
+#'                   time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
+#'                   numeric_col_na = c(rnorm(50), rep(NA, 50)))
+#'
+#' # Combine all fake data into a list
+#' df_list <- list(df1 = df1, df2 = df2, df3 = df3)
+#'
+#' # Use the function on a list of df
+#' results_list <- lapply(df_list, get_data_frame_summary)
+#'
+#' @export
 get_data_frame_summary <- function(df) {
   library(moments)
   
@@ -47,48 +98,6 @@ get_data_frame_summary <- function(df) {
   colnames(result)[12:15] <- c("Min", "Max", "Num NAs", "% Non-Null Responses")
   return(result)
 }
-
-
-########################################################### How to use on 1 data frame
-
-# Generate fake data set
-set.seed(123)
-df <- data.frame(numeric_col = rnorm(100),
-                 categorical_col = sample(letters[1:5], 100, replace = TRUE),
-                 character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
-                 date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
-                 time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
-                 numeric_col_na = c(rnorm(50), rep(NA, 50)))
-
-# Use the function on the fake data set
-result <- get_data_frame_summary(df)
-result
-
-
-########################################################### How to use on a list of data frames
-
-# Generate more fake data frames
-df2 <- data.frame(numeric_col = rnorm(100),
-                  categorical_col = sample(letters[1:5], 100, replace = TRUE),
-                  character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
-                  date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
-                  time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
-                  numeric_col_na = c(rnorm(50), rep(NA, 50)))
-
-df3 <- data.frame(numeric_col = rnorm(100),
-                  categorical_col = sample(letters[1:5], 100, replace = TRUE),
-                  character_col = sample(c("A", "B", "C"), 100, replace = TRUE),
-                  date_col = as.Date("2021-01-01") + sample(365, 100, replace = TRUE),
-                  time_col = as.POSIXct("2021-01-01") + sample(3600 * 24, 100, replace = TRUE),
-                  numeric_col_na = c(rnorm(50), rep(NA, 50)))
-
-# Combine all fake data into a list
-df_list <- list(df1 = df1, df2 = df2, df3 = df3)
-
-# Use the function on a list of df
-results_list <- lapply(df_list, get_data_frame_summary)
-
-
 ########################################################### Get summary statistics for each level of a group
 get_data_frame_summary_by_group <- function(df, group) {
   library(moments)
@@ -107,6 +116,3 @@ get_data_frame_summary_by_group <- function(df, group) {
   
   return(result_list)
 }
-
-# Use the function to save a list of summary statistics for each level of a variable in a data frame
-get_data_frame_summary_by_group(df, "categorical_col") -> result_list

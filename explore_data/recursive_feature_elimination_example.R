@@ -1,3 +1,17 @@
+#' Load and preprocess iris data for Recursive Feature Elimination
+#' 
+#' This script illustrates how to perform Recursive Feature Elimination (RFE) on the training set using the Random Forest algorithm.
+#' 
+#' @importFrom caret createDataPartition rfeControl rfe rfFuncs
+#' @importFrom datasets iris
+#' 
+#' @return A data frame containing the variable importance scores computed from the RFE analysis.
+#' 
+#' @examples
+#' data <- iris_rfe()
+#' 
+#' @export
+# Load package
 library(caret)
 
 # Load a dataset

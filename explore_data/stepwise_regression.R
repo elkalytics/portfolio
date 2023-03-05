@@ -1,7 +1,29 @@
-# Stepwise regression with cv
-# Select direction
-
-# Save function
+#' Stepwise regression with cross-validation
+#'
+#' Fits a stepwise regression model with backward, forward, or both stepwise
+#' selection, and performs cross-validation to evaluate model performance.
+#'
+#' @param data A data.frame containing the variables to be used in the regression.
+#' @param dependent_var The name of the dependent variable as a string.
+#' @param step_type The type of stepwise selection to perform: "backward", "forward", or "both".
+#'
+#' @return A list containing the following items:
+#' \itemize{
+#' \item \code{result}: A data.frame containing the results of the cross-validation.
+#' \item \code{best_tune}: The value of \code{nvmax} that gives the best performance.
+#' \item \code{final_model_summary}: A summary of the final model.
+#' \item \code{coefficients}: The coefficients of the final model.
+#' }
+#'
+#' @examples
+#' data(swiss)
+#' stepwise_regression(swiss, "Fertility", "backward")
+#' stepwise_regression(swiss, "Fertility", "forward")
+#' stepwise_regression(swiss, "Fertility", "both")
+#'
+#' @importFrom stats lm regsubsets stepAIC
+#' @importFrom caret trainControl train
+#' @export
 stepwise_regression <- function(data, dependent_var, step_type = "both"){
   
   # Extract the dependent variable name as a string
@@ -48,14 +70,3 @@ stepwise_regression <- function(data, dependent_var, step_type = "both"){
               final_model_summary = final_model_summary, 
               coefficients = coefficients))
 }
-
-
-## Example data
-# data(swiss)
-
-## Example use
-# stepwise_regression(swiss, Fertility, "backward")
-# stepwise_regression(swiss, Fertility, "forward")
-# stepwise_regression(swiss, Fertility, "both")
-
-

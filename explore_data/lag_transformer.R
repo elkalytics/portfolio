@@ -1,4 +1,16 @@
-# Apply multiple lag transformations
+#' Apply multiple lag transformations
+#'
+#' This function applies multiple lag transformations, differencing, and logarithmic transformations to a given dataset.
+#' @param data a numeric vector or matrix containing the data to be transformed
+#' @param lags an integer specifying the number of lags to be included in the transformed dataset
+#' @param diff_lags an integer specifying the number of times to difference the data
+#' @param log_transform a logical indicating whether to perform a logarithmic transformation on the data
+#' @return a matrix containing the transformed data
+#' @examples 
+#' # Load data
+#' data(AirPassengers)
+#' # Apply function
+#' transformed_data <- multi_lag_transform(AirPassengers, lags = 2, diff_lags = 2, log_transform = TRUE)
 multi_lag_transform <- function(data, lags, diff_lags, log_transform) {
   
   # Check for zero or negative values
@@ -38,11 +50,3 @@ multi_lag_transform <- function(data, lags, diff_lags, log_transform) {
   message("Transformed data dimensions: ", dim(transformed_data))
   return(transformed_data)
 }
-
-
-## Example 
-## Load data
-# data(AirPassengers)
-
-# Apply function
-# transformed_data <- multi_lag_transform(AirPassengers, lags = 2, diff_lags = 2, log_transform = TRUE)

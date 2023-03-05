@@ -1,3 +1,22 @@
+#' Examples of LDA, QDA, FDA, and RDA analyses on the iris dataset
+#'
+#' This script loads the MASS, ggplot2, mda, and klaR packages and applies linear discriminant analysis (LDA),
+#' quadratic discriminant analysis (QDA), flexible discriminant analysis (FDA), and regularized discriminant analysis
+#' (RDA) on the iris dataset. This script is meant for illustrative purposes only.
+#'
+#' @importFrom ggplot2 ggplot geom_point labs
+#' @importFrom MASS lda
+#' @importFrom mda fda
+#' @importFrom klaR qda rda
+#'
+#' @param lambda The penalty parameter used for RDA.
+#' @return None
+#'
+#' @examples
+#' iris_lda_qda_fda_rda()
+#'
+#' @export
+
 # Load the MASS package
 library(MASS) # LDA
 library(ggplot2) # Visualize
@@ -91,4 +110,3 @@ new_data <- data.frame(Sepal.Length = c(5.1, 5.8, 6.7),
                        Petal.Width = c(0.2, 1.0, 2.4))
 
 predict(rda_model, newdata = new_data)
-

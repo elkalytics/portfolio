@@ -1,3 +1,19 @@
+#' Perform cluster analysis using k-means
+#'
+#' This function illustrates how to perform cluster analysis on simulated data for 
+#' two groups using the k-means algorithm, and visualizes the results.
+#'
+#' @param n the number of observations in each group
+#' @param mean_normal the mean for the normal group
+#' @param mean_fraud the mean for the fraudulent group
+#' @param cov the covariance matrix
+#' @param k the number of clusters
+#' @return The group identified as fraudulent based on the cluster centroids
+#' @export
+#' @examples
+#' data <- simulate_data(n = 100, mean_normal = c(0, 0), mean_fraud = c(5, 5), cov = matrix(c(1, 0.5, 0.5, 1), ncol = 2))
+#' fraudulent_group <- kmeans_cluster(data, k = 2)
+
 # load required packages
 library(mvtnorm)
 library(cluster)
