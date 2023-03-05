@@ -1,12 +1,29 @@
-# Function to plot revenue - barplot by year and cumulative sales over time
-
-# Load packages
-library(ggplot2)
-library(ggpubr)
-library(ggpmisc)
-
-# Save function
+#' Create a combined plot of revenue boxplot by year and cumulative sales over time
+#' 
+#' User specifies data as well as columns for year and revenue.
+#'
+#' @param data A data.frame containing the revenue data.
+#' @param year_var A string specifying the name of the column in \code{data} containing the years.
+#' @param revenue_var A string specifying the name of the column in \code{data} containing the revenue values.
+#'
+#' @return A ggplot object of the combined plot.
+#'
+#' @import ggplot2
+#' @import ggpubr
+#' @import ggpmisc
+#'
+#' @examples
+#' # Create a fake data set
+#' revenue_data <- data.frame(year = c(2018, 2018, 2019, 2019, 2020, 2020, 2021, 2021),
+#'                            sales = c(50, 150, 100, 200, 75, 75, 200, 100))
+#' # Apply function
+#' create_stock_plot(data = revenue_data, year_var = "year", revenue_var = "sales")
+#' 
 create_stock_plot <- function(data, year_var, revenue_var) {
+  library(ggplot2)
+  library(ggpubr)
+  library(ggpmisc)
+  
   # Convert data to a data frame
   data_df <- data.frame(data)
   
@@ -38,10 +55,3 @@ create_stock_plot <- function(data, year_var, revenue_var) {
   
   return(combined_plot)
 }
-
-## Make a fake data set
-# revenue_data <- data.frame(year = c(2018, 2018, 2019, 2019, 2020, 2020, 2021, 2021),
-#                            sales = c(50, 150, 100, 200, 75, 75, 200, 100))
-
-## Apply function
-# create_stock_plot(data = revenue_data, year_var = "year", revenue_var = "sales")

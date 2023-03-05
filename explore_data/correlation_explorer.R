@@ -1,6 +1,42 @@
-library(MASS)
-
+#' Identify distribution and correlation
+#' 
+#' This function takes in a data frame and attempts to identify the distribution and 
+#' correlation of each column.
+#' 
+#' @param df A data frame
+#' 
+#' @return A data frame with three columns: Variable (the name of each column in df), Distribution (the identified distribution of the data), and Correlation (the identified correlation method for the data).
+#' 
+#' @examples 
+#' set.seed(123)
+#' df <- data.frame(
+#'   var1 = rnorm(100),
+#'   var2 = rgamma(100, shape = 3),
+#'   var3 = rt(100, df = 5),
+#'   var4 = rbinom(100, size = 10, prob = 0.5),
+#'   var5 = rcauchy(100),
+#'   var6 = rpois(100, lambda = 5),
+#'   var7 = rexp(100, rate = 1),
+#'   var8 = rchisq(100, df = 5),
+#'   var9 = rf(100, df1 = 5, df2 = 5),
+#'   var10 = runif(100, min = 0, max = 1),
+#'   var11 = sample(c("A", "B", "C"), 100, replace = TRUE),
+#'   var12 = sample(c("Yes", "No"), 100, replace = TRUE),
+#'   var13 = sample(1:10, 100, replace = TRUE),
+#'   var14 = sample(LETTERS[1:26], 100, replace = TRUE),
+#'   var15 = sample(0:1, 100, replace = TRUE),
+#'   var16 = sample(100:999, 100, replace = TRUE),
+#'   var17 = sample(c(TRUE, FALSE), 100, replace = TRUE),
+#'   var18 = as.Date("2021-01-01") + sample(0:365, 100, replace = TRUE),
+#'   var19 = as.POSIXct("2021-01-01 00:00:00") + sample(0:86399, 100, replace = TRUE),
+#'   var20 = sample(letters, 100, replace = TRUE)
+#' )
+#' result <- identify_distribution_and_correlation(df)
+#' 
+#' @export
 identify_distribution_and_correlation <- function(df) {
+  library(MASS)
+  
   # Convert columns with character or string data to factors
   df[] <- lapply(df, function(col) {
     if (is.character(col) || is.factor(col)) {
@@ -50,35 +86,3 @@ identify_distribution_and_correlation <- function(df) {
   
   return(result)
 }
-
-
-
-
-set.seed(123)
-df <- data.frame(
-  var1 = rnorm(100),
-  var2 = rgamma(100, shape = 3),
-  var3 = rt(100, df = 5),
-  var4 = rbinom(100, size = 10, prob = 0.5),
-  var5 = rcauchy(100),
-  var6 = rpois(100, lambda = 5),
-  var7 = rexp(100, rate = 1),
-  var8 = rchisq(100, df = 5),
-  var9 = rf(100, df1 = 5, df2 = 5),
-  var10 = runif(100, min = 0, max = 1),
-  var11 = sample(c("A", "B", "C"), 100, replace = TRUE),
-  var12 = sample(c("Yes", "No"), 100, replace = TRUE),
-  var13 = sample(1:10, 100, replace = TRUE),
-  var14 = sample(LETTERS[1:26], 100, replace = TRUE),
-  var15 = sample(0:1, 100, replace = TRUE),
-  var16 = sample(100:999, 100, replace = TRUE),
-  var17 = sample(c(TRUE, FALSE), 100, replace = TRUE),
-  var18 = as.Date("2021-01-01") + sample(0:365, 100, replace = TRUE),
-  var19 = as.POSIXct("2021-01-01 00:00:00") + sample(0:86399, 100, replace = TRUE),
-  var20 = sample(letters, 100, replace = TRUE)
-)
-
-result <- identify_distribution_and_correlation(df)
-
-
-

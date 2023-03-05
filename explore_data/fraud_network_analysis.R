@@ -1,3 +1,17 @@
+#' Simulate and visualize customer transaction network
+#' 
+#' This function simulates a customer transaction network and visualizes it using visNetwork. 
+#' It shows how to detects potential fraudsters using network centrality measures.
+#' 
+#' @import igraph
+#' @import visNetwork
+#' 
+#' @return A visualization of the customer transaction network, along with a list of potential fraudsters.
+#' 
+#' @examples
+#' simulate_and_visualize_customer_network()
+#' 
+#' @export
 # load required packages
 library(igraph)
 library(visNetwork)

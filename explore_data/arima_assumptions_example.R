@@ -1,9 +1,20 @@
-
-# Load the required packages
+#' Analyzing AirPassengers Data
+#' 
+#' This script loads the AirPassengers dataset and uses ARIMA to forecast passengers
+#' as an example of how to use ARIMA to forecast a total. This script also includes
+#' testing for core assumptions of ARIMA: stationarity, autocorrelation, and normality.
+#'
+#' @title Analyzing AirPassengers Data with ARIMA and checking assumptions.
+#' @author Justin Chase
+#' @date March 4, 2023
+#' @keywords time series, ARIMA, forecasting
+#' @import tseries forecast
+#' @export
+# Load packages
 library(tseries)
 library(forecast)
 
-# Load the AirPassengers dataset
+# Load data
 data(AirPassengers)
 
 # Check the structure of the dataset
@@ -119,4 +130,3 @@ qqnorm(log_residuals, main = "Normal Probability Plot of Transformed Residuals")
 # Test for normality of the transformed residuals using the Shapiro-Wilk test
 shapiro_log <- shapiro.test(log_residuals)
 cat("Shapiro-Wilk test p-value (log transformed):", shapiro_log$p.value, "\n")
-

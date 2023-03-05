@@ -1,4 +1,21 @@
+#' Example of fitting an elastic net model on iris dataset
+#'
+#' This function demonstrates how to fit an elastic net model on the iris dataset using glmnet package.
+#'
+#' @import glmnet
+#' @importFrom stats as.numeric
+#' @importFrom stats sample
+#' @importFrom utils seq
+#' @importFrom utils colnames
+#'
+#' @examples
+#' example_glmnet()
+#'
+
+# Load package
 library(glmnet)
+
+# Load data
 data(iris)
 
 # Convert the response variable to a numeric variable

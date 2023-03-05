@@ -1,6 +1,21 @@
-# Function to plot mean and SD across variables
-
-# Save function
+#' Plot mean and SD across variables
+#'
+#' This function takes in a data frame and calculates the means and standard deviations of the columns.
+#' It then creates a plot of the means and standard deviations with error bars to show the standard deviations.
+#'
+#' @param df A data frame
+#'
+#' @return A plot of the means and standard deviations with error bars
+#'
+#' @examples
+#' df <- data.frame(
+#'   variable1 = rnorm(50, mean = 0, sd = 1),
+#'   variable2 = rnorm(50, mean = 2, sd = 2),
+#'   variable3 = rnorm(50, mean = -2, sd = 0.5)
+#' )
+#' plot_profile(df)
+#'
+#' @export
 plot_profile <- function(df) {
   # Calculate the means and standard deviations of the columns in the data frame
   means <- apply(df, 2, mean)
@@ -28,13 +43,3 @@ plot_profile <- function(df) {
   legend("topleft", legend="Mean +/- 2SD", lty=1, pch=21, 
          pt.bg="white", pt.cex=1.2, bty="n", cex=0.8)
 }
-
-## Create a sample data frame
-# df <- data.frame(
-#   variable1 = rnorm(50, mean = 0, sd = 1),
-#   variable2 = rnorm(50, mean = 2, sd = 2),
-#   variable3 = rnorm(50, mean = -2, sd = 0.5)
-# )
-
-## Call the plot_profile function to create the plot
-# plot_profile(df)

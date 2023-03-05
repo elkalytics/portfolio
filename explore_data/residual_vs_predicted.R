@@ -1,5 +1,22 @@
-# R function to plot residuals agianst predicted
-
+#' Plot residuals against predicted values
+#'
+#' This function creates a scatterplot of residuals against predicted values from a linear regression model.
+#'
+#' @param lm_object A linear model object.
+#' @param point_color Color of the points in the scatterplot (default is "black").
+#' @param fit_color Color of the line of best fit (default is "blue").
+#' @param res_color Color of the lines connecting the residuals to the line of best fit (default is "red").
+#' @param decimal_places Number of decimal places to display in the title of the plot (default is 2).
+#'
+#' @return A ggplot object of the residual plot.
+#'
+#' @examples
+#' lm_object <- lm(mpg ~ disp, data = mtcars)
+#' residual_plot(lm_object)
+#'
+#' @import ggplot2
+#' @importFrom stats lm
+#' @export
 # Load package
 library(ggplot2)
 
@@ -39,10 +56,3 @@ residual_plot <- function(lm_object, point_color = "black", fit_color = "blue",
   
   return(p)
 }
-
-
-## Fit a linear model
-# lm_object <- lm(mpg ~ disp, data = mtcars)
-
-## Create residual plot
-# residual_plot(lm_object)

@@ -1,7 +1,21 @@
-
-library(reshape2)
-
+#' Create a heatmap of two variables in a data frame
+#'
+#' @param data A data frame containing the variables of interest
+#' @param var1 A string indicating the name of the first variable to use in the heatmap
+#' @param var2 A string indicating the name of the second variable to use in the heatmap
+#'
+#' @return A heatmap showing the frequency of each combination of \code{var1} and \code{var2} in the data
+#'
+#' @examples
+#' data(mtcars)
+#' create_heatmap(mtcars, "cyl", "carb")
+#'
+#' @importFrom reshape2 dcast
+#' @importFrom graphics heatmap text
+#' @importFrom grDevices colorRampPalette
 create_heatmap <- function(data, var1, var2) {
+  library(reshape2)
+  
   # Subset the data frame to only include the specified variables
   df_subset <- data[, c(var1, var2)]
   
@@ -31,12 +45,3 @@ create_heatmap <- function(data, var1, var2) {
        labels = round(matrix_data, digits = 2), 
        col = "black")
 }
-
-
-## Load some example data
-# data(mtcars)
-
-## Create a heatmap of mpg and wt
-# create_heatmap(mtcars, "cyl", "carb")
-
-

@@ -1,3 +1,15 @@
+#' Lasso regression example
+#' 
+#' This script illustrates how to use lasso regression in R.
+#'
+#' @importFrom glmnet cv.glmnet
+#' @importFrom caret createDataPartition
+#'
+#' @return iris data frame.
+#'
+#' @examples
+#' data <- load_data()
+
 library(glmnet)
 library(caret)
 

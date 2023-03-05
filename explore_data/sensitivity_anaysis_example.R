@@ -1,3 +1,15 @@
+#' Calculate the sensitivity of the linear regression model to changes in x.
+#'
+#' Given a value or vector of x values, this function calculates the corresponding y values predicted by the linear regression model.
+#' This script is designed to illustrate how to conduct sensitivity analysis in R. Also contains
+#' code to check the assumptions.
+#' 
+#' @param x A numeric value or vector of numeric values for which to calculate the predicted y values.
+#' @return A numeric vector of predicted y values corresponding to the input x values.
+#' @examples
+#' sensitivity(5)
+#' sensitivity(c(1, 2, 3))
+
 # Load the required library
 library(tidyverse)
 library(lmtest)

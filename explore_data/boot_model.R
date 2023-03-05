@@ -1,6 +1,22 @@
-# Function to obtain bootstrapped confidence intervals for model
-
-# Save function
+#' Function to obtain bootstrapped confidence intervals for a linear model
+#' 
+#' The user can specify desired parameters to bootstrap confidence intervals for a linear model.
+#' The output returned is a list of results along with histograms showing the sampling
+#' distribution of the intercepts and slopes.
+#' 
+#' @param data A data.frame containing the data to fit the model.
+#' @param formula A formula specifying the linear model to be fit.
+#' @param R An integer specifying the number of bootstrap replicates.
+#' @param type A character string specifying the type of bootstrap confidence interval to compute.
+#' 
+#' @return A list containing the bootstrap confidence intervals for the intercept and slope of the linear model.
+#' 
+#' @importFrom boot boot boot.ci
+#' 
+#' @examples
+#' boot_model(mtcars, "mpg ~ wt + qsec")
+#'
+#' @export
 boot_model <- function(data, formula, R = 1000, type = "basic") {
   
   # Load library
@@ -27,8 +43,3 @@ boot_model <- function(data, formula, R = 1000, type = "basic") {
   # Return the bootstrap confidence intervals for the coefficients
   return(boot_ci)
 }
-
-
-## Example use
-# boot_model(mtcars, "mpg ~ wt + qsec")
-

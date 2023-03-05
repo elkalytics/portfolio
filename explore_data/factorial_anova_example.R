@@ -1,3 +1,29 @@
+#' Example R Script with Roxygen Comments
+#'
+#' This script illustrates how to perform a factorial type III ANOVA and 
+#' post hoc tests on an example data set. It also includes lines on how to check
+#' assumptions.
+#' 
+#' @importFrom car library
+#' @importFrom effsize library
+#' @importFrom sjPlot library
+#'
+#' @param factor1 A factor variable with levels A and B
+#' @param factor2 A factor variable with levels X and Y
+#' @param variable A numeric variable
+#' 
+#' @return A Tukey HSD test result object
+#'
+#' @examples
+#' # Run the example script
+#' source("example_script.R")
+#'
+#' # View the Tukey HSD test results
+#' print(tukey)
+#'
+#' @export
+#'
+
 # Load the necessary packages
 library(car)
 library(effsize)

@@ -1,3 +1,25 @@
+#' Fit a MARS model to predict mpg in mtcars dataset.
+#'
+#' This script illustrates how to fit a Multivariate Adaptive Regression Splines (MARS) model
+#' to a dataset to predict an outcome (miles per gallon).
+#'
+#' @param data a data frame containing the data
+#' @param degree the maximum degree of interactions between variables
+#' @param nprune the minimum number of observations in a terminal node
+#' @param method the modeling method to use, "earth" for MARS
+#' @param trControl a trainControl object that controls the training process
+#' @param tuneGrid a data frame specifying the grid of hyperparameters to search over
+#'
+#' @return a trained MARS model object
+#'
+#' @examples
+#' data(mtcars)
+#' mars_model <- fit_mars_model(mtcars, degree = 2, nprune = 5)
+#' 
+#' @importFrom earth earth
+#' @importFrom caret createDataPartition train trainControl
+#' 
+#' @export
 # Load required libraries
 library(earth)
 library(caret)
