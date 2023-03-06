@@ -16,33 +16,38 @@
 #' 
 #' @import dplyr
 #' @import ggplot2
+#' @import viridisLite
 #' 
 #' @examples
 #' \dontrun{
-#' stacked_percentages(diamonds, cut, clarity)
+#' stacked_percentages(diamonds, clarity, cut) -> result
 #' }
 # Load necessary packages
-library(dplyr)
+library(viridisLite)
 library(ggplot2)
-# Define function to compute percentages and plot results
+library(dplyr)
 stacked_percentages <- function(data, group_var, value_var) {
   
   # Compute counts and percentages by group and value
-  percentages <- data %>% # Input data frame
-    group_by({{ group_var }}, {{ value_var }}) %>% # Group by two variables
-    summarize(n = n()) %>% # Count number of observations in each group
-    group_by({{ group_var }}, .drop = TRUE) %>% # Group by first variable only
-    mutate(pct = n / sum(n) * 100) # Calculate percentages for each group and value
+  percentages <- data %>%
+    group_by({{ group_var }}, {{ value_var }}) %>%
+    summarize(n = n()) %>%
+    group_by({{ group_var }}, .drop = TRUE) %>%
+    mutate(pct = n / sum(n) * 100)
   
-  # Create bar plot of percentages
-  p <- ggplot(percentages, aes(x = {{ value_var }}, y = pct, fill = {{ group_var }})) + # Set up plot with variables and percentages
-    geom_bar(position = "fill", stat = "identity", color = 'black', width = 0.9) + # Create bar plot with fill color, black outlines, and fixed width
-    geom_text(aes(label = paste0(round(pct,1), "%")), # Add percentage labels with one decimal point and percent sign
-              position = position_fill(vjust = 0.5), color = "black", size = 3) + # Position text in the center of each bar
-    theme_bw() + # Use a black and white theme
-    labs(title = "Percentages by group and value", # Set plot title and axis labels
-         x = quo_name(enquo(value_var)),
-         y = "Percentage")
+  # Create bar plot of percentages with viridis color palette
+  p <- ggplot(percentages, aes(x = {{ group_var }}, y = pct, fill = {{ value_var }})) +
+    geom_bar(position = "stack", stat = "identity", color = 'black', width = 0.6) +
+    geom_text(aes(label = ifelse(pct >= 2, paste0(round(pct,1), "%"), "")),
+              position = position_stack(vjust = 0.5), color = "black", size = 3) +
+    scale_fill_viridis_d(option = "D", begin = 0.2, end = 0.8) +
+    theme_bw() +
+    labs(title = "Percentages by group and value",
+         x = quo_name(enquo(group_var)),
+         y = "Percentage") +
+    annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = -1,
+             label = "Percentages under 2% are not displayed for aesthetic purposes",
+             color = "gray20", size = 3, parse = TRUE)
   
   # Print plot to screen
   print(p)
