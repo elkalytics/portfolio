@@ -19,7 +19,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' compute_percentages(diamonds, cut, clarity)
+#' stacked_percentages(diamonds, cut, clarity)
 #' }
 # Load necessary packages
 library(dplyr)
