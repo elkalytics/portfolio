@@ -31,7 +31,7 @@ stacked_percentages <- function(data, group_var, value_var) {
   # Compute counts and percentages by group and value
   percentages <- data %>%
     group_by({{ group_var }}, {{ value_var }}) %>%
-    summarize(n = n()) %>%
+    summarize(n = n(), .groups = "drop") %>%
     group_by({{ group_var }}, .drop = TRUE) %>%
     mutate(pct = n / sum(n) * 100)
   
@@ -46,8 +46,8 @@ stacked_percentages <- function(data, group_var, value_var) {
          x = quo_name(enquo(group_var)),
          y = "Percentage") +
     annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = -1,
-             label = "Percentages under 2% are not displayed for aesthetic purposes",
-             color = "gray20", size = 3, parse = TRUE)
+             label = "Percentages lower than 2 are not displayed",
+             color = "gray20", size = 3)
   
   # Print plot to screen
   print(p)
