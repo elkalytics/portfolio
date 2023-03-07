@@ -1,6 +1,7 @@
 -- Dynamic T-SQL to query descriptives for every variable
 -- Not tested/run
 
+-- Declare variables
 DECLARE @sql NVARCHAR(MAX) = '';
 DECLARE @columns NVARCHAR(MAX) = '';
 DECLARE @columnType NVARCHAR(MAX) = '';

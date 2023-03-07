@@ -13,6 +13,8 @@
 #' api_key <- "sk-YOUR_API_KEY" 
 #' prompt <- "Can you write a poem about my cat Sam?"
 #' response <- access_gpt(prompt, api_key)
+#' @export
+#' 
 # Save API key
 api_key <- "sk-YOUR_API_KEY" 
 

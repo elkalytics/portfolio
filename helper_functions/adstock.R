@@ -13,6 +13,8 @@
 #' lag <- 2
 #' decay <- 0.5
 #' adstocked <- adstock(x, lag, decay)
+#' @export
+#' 
 # Save adstock function
 adstock <- function(x, lag, decay) {
   weights <- c(1, rep(decay, lag))

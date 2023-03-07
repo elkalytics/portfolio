@@ -10,6 +10,8 @@
 #' data <- data.frame(x = rnorm(100), y = rnorm(100), z = runif(100), w = rpois(100, 1))
 #' data <- create_categories(data)
 #' head(data)
+#' @export
+#' 
 create_categories <- function(data) {
   for (var in names(data)[sapply(data, is.numeric)]) {
     for (n in 2:10) {

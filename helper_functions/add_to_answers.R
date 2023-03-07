@@ -10,16 +10,17 @@
 #'
 #' @param char_obj a character object representing the GPT response
 #'
-#' @return None
-#' @export
+#' @return A list of answers containing the input character object and the date/time it was added
 #'
 #' @examples
-#' # result <- ask_gpt("what is 2 + 2?")
-#' # add_to_answers(result)
-#' # str(`gpt_answers_2023-03-04`)
-#' # result <- ask_gpt("what is 2 - 2?")
-#' # add_to_answers(result)
-#' # View(`gpt_answers_2023-03-04`)
+#' result <- ask_gpt("what is 2 + 2?")
+#' add_to_answers(result)
+#' str(`gpt_answers_2023-03-04`)
+#' result <- ask_gpt("what is 2 - 2?")
+#' add_to_answers(result)
+#' View(`gpt_answers_2023-03-04`)
+#' 
+#' @export 
 # Load packages
 library(httr)
 library(stringr)
