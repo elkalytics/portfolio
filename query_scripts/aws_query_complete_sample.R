@@ -1,8 +1,24 @@
-# Query sample of first 10 non-null rows from AWS
-# If all the rows have at least 1 null, it will take the most complete rows
-
+#' Query first 10 rows without nulls or 10 most complete rows from a MySQL database
+#' 
+#' This function queries the first 10 rows without null values for each table in a MySQL database. If all rows in a table contain at least one null value, the function queries the 10 most complete rows in that table. The function returns a list of data frames, with each data frame containing the first 10 non-null rows or the 10 most complete rows for each table in the database.
+#' 
+#' @param dbname Name of the MySQL database to connect to.
+#' @param user User name to use when connecting to the MySQL database.
+#' @param password Password to use when connecting to the MySQL database.
+#' @param host Host name or IP address of the MySQL server.
+#' 
+#' @return A list of data frames, with each data frame containing the first 10 non-null rows or the 10 most complete rows for each table in the database.
+#' 
+#' @examples
+#' dbname <- "mydatabase"
+#' user <- "myuser"
+#' password <- "mypassword"
+#' host <- "mydatabase.us-west-2.rds.amazonaws.com"
+#' results <- query_first_10_rows(dbname, user, password, host)
+#' 
+#' @import RMySQL
+# Load package
 library(RMySQL)
-
 # function to query first 10 rows of all tables without nulls or the 10 most complete rows
 query_first_10_rows <- function(dbname, user, password, host) {
   # create database connection
@@ -64,10 +80,3 @@ query_first_10_rows <- function(dbname, user, password, host) {
   names(results) <- tables[names(results)]
   return(results)
 }
-
-# example usage
-dbname <- "mydatabase"
-user <- "myuser"
-password <- "mypassword"
-host <- "mydatabase.us-west-2.rds.amazonaws.com"
-results <- query_first_10_rows(dbname, user, password, host)
