@@ -1,4 +1,10 @@
-# Save common scales
+#' Save common scales for likert_recode function
+#'
+#' This function creates a list of common scales used for recoding Likert-type items
+#' in the likert_recode function.
+#'
+#' @return A list of scales with names and corresponding levels
+#' @export
 scale_items <- list(
   "Agreement" = c("1. Strongly disagree", "2. Disagree", "3. Neutral", "4. Agree", "5. Strongly agree"),
   "Confidence" = c("1. Not at all confident", "2. Slightly confident", "3. Moderately confident", "4. Very confident", "5. Extremely confident"),
@@ -12,7 +18,36 @@ scale_items <- list(
   "Motivation" = c("1. Not at all motivated", "2. Slightly motivated", "3. Moderately motivated", "4. Very motivated", "5. Extremely motivated"),
   "Agreement11" = c("0. Does not apply", "1. Strongly disagree", "2. Disagree", "3. Somewhat disagree", "4. Neither agree nor disagree", "5. Somewhat agree", "6. Agree", "7. Strongly agree", "8. Completely agree", "9. Not applicable", "10. Unsure")
 )
-
+#' Apply common scale labels to Likert scale data
+#' 
+#' This function applies common scale labels to Likert scale data by recoding the columns associated with each specified scale. The function takes a data frame and a named list of column names or column position numbers associated with each scale. The function checks if the specified scale names exist in the `scale_items` list, and recodes the specified columns as ordered factors using the associated scale vector. The modified data frame is returned.
+#' 
+#' @param data a data frame to recode
+#' @param column_scale_map a named list of column names or column position numbers associated with each scale
+#' @return a modified data frame with recoded columns
+#' @examples
+#' example_1 <- data.frame(
+#'   q_agree1 = c(1, 2, 3, 4, 5),
+#'   q_satisfaction = c(4, 1, 2, 5, 3)
+#' )
+#' column_scale_map <- list(
+#'   "Agreement" = "q_agree1",
+#'  "Satisfaction" = "q_satisfaction"
+#' )
+#' example_1 <- likert_recode(example_1, column_scale_map)
+#' example_1
+#'
+#' df_2 <- data.frame(
+#'   q_agree1 = c(1, 2, 3, 4, 5),
+#'   q_agree2 = c(2, 3, 1, 5, 4),
+#'   q_agree3 = c(5, 4, 3, 2, 1)
+#' )
+#' column_scale_map <- list(
+#'   "Agreement" = c("q_agree1", "q_agree2", "q_agree3"),
+#'  "Satisfaction" = c()
+#' )
+#' example_2 <- likert_recode(df_2, column_scale_map)
+#' example_2
 # Save function that applies common scale labels
 likert_recode <- function(data, column_scale_map) {
   
@@ -52,40 +87,3 @@ likert_recode <- function(data, column_scale_map) {
   # Return the modified data frame
   return(data)
 }
-
-## Create data frame for example 1
-# example_1 <- data.frame(
-#   q_agree1 = c(1, 2, 3, 4, 5),
-#   q_satisfaction = c(4, 1, 2, 5, 3)
-# )
-
-## List columns
-# column_scale_map <- list(
-#   "Agreement" = "q_agree1",
-#  "Satisfaction" = "q_satisfaction"
-# )
-
-## Run function on example 1
-# example_1 <- likert_recode(example_1, column_scale_map)
-
-## Review results
-# example_1
-
-## Create data frame for example 2
-# df_2 <- data.frame(
-#   q_agree1 = c(1, 2, 3, 4, 5),
-#   q_agree2 = c(2, 3, 1, 5, 4),
-#   q_agree3 = c(5, 4, 3, 2, 1)
-# )
-
-## List columns
-# column_scale_map <- list(
-#   "Agreement" = c("q_agree1", "q_agree2", "q_agree3"),
-#  "Satisfaction" = c()
-# )
-
-## Run function on example 2
-# example_2 <- likert_recode(df_2, column_scale_map)
-
-## Review results
-# example_2

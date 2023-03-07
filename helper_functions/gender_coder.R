@@ -1,7 +1,21 @@
 # Load the gender package
+#' Estimate the gender of a given name
+#'
+#' This function uses the `gender` package to estimate the gender of a given name.
+#'
+#' @param name A character string representing a person's name
+#'
+#' @return A character string representing the estimated gender ("male", "female",
+#' or "unknown")
+#'
+#' @importFrom gender gender
+#' @export
+#'
+#' @examples
+#' get_gender("Alice") # Returns "female"
+#' get_gender("Bob") # Returns "male"
 library(gender)
-
-# Define a function that uses the gender package to estimate gender
+# Save function
 get_gender <- function(name) {
   # Estimate gender using the gender function from the gender package
   gender_obj <- gender(name)
@@ -12,8 +26,3 @@ get_gender <- function(name) {
   # Return the estimated gender
   return(gender)
 }
-
-## Example usage
-# get_gender("Alice")
-# get_gender("Bob")
-# get_gender("Taylor")

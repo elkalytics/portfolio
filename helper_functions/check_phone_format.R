@@ -1,6 +1,16 @@
-# R function to fix phone number formatting
-# Assumes desired format is (555)-555-5555
-
+#' Fix phone number formatting in a data frame column
+#'
+#' This function takes a data frame and the name of a column containing phone numbers in various formats, and formats the phone numbers as (555)-555-5555. The function also creates a new column with a number_flag indicating whether the phone number had the correct number of digits (7 or 10 digits).
+#'
+#' @param data a data frame containing the phone number column to be formatted
+#' @param colname the name of the column containing the phone numbers
+#'
+#' @return a data frame with the formatted phone numbers in a new column and a number_flag indicating whether the phone number had the correct number of digits
+#'
+#' @examples
+#' df <- data.frame(name = c("John", "Mary", "Mike", "Sue", "Alex"),
+#'                  phone = c("(555) 555-5555", "6555544", "537-443-2212", "5212229983", "(555)312"))
+#' check_phone_format(df, "phone")
 check_phone_format <- function(data, colname) {
   
   # extract the specified column from the data frame
@@ -28,11 +38,3 @@ check_phone_format <- function(data, colname) {
   # return the combined data frame
   return(result)
 }
-
-
-## create a fake data frame
-# df <- data.frame(name = c("John", "Mary", "Mike", "Sue", "Alex"),
-#                  phone = c("(555) 555-5555", "6555544", "537-443-2212", "5212229983", "(555)312"))
-
-## apply the function to the 'phone' column in the fake data frame
-# check_phone_format(df, "phone")

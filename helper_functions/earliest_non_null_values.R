@@ -1,8 +1,33 @@
-# Function to take earliest non-null row
-
+#' Function to take earliest non-null row
+#'
+#' This function takes a data frame and finds the earliest non-null value for each column, 
+#' grouping by a unique identifier. The output is a data frame with one row for each 
+#' unique identifier and columns representing the earliest non-null value for each 
+#' column in the group.
+#'
+#' @param data A data frame containing the data to filter
+#' @param system_date_col A string specifying the name of the column containing the system date
+#' @param unique_id_col A string specifying the name of the column containing the unique identifier
+#' 
+#' @return A data frame with one row for each unique identifier and columns representing the earliest 
+#' non-null value for each column in the group.
+#'
+#' @import dplyr
+#'
+#' @examples
+#' data <- data.frame(
+#'   unique_id = c("A", "A", "B", "B", "C", "C"),
+#'   system_date = c("2022-01-01", "2022-01-02", "2022-01-01", "2022-01-03", "2022-01-02", "2022-01-03"),
+#'   col1 = c(NA, 2, 3, 4, 5, 6),
+#'   col2 = c(7, NA, 9, 10, 11, 12),
+#'   col3 = c(13, 14, NA, 16, 17, 18)
+#' )
+#'
+#' earliest_non_null_values(data, "system_date", "unique_id")
+#'
+#' @export
 # Load package
 library(dplyr)
-
 # Save function
 earliest_non_null_values <- function(data, system_date_col, unique_id_col) {
   # Get the names of the columns to filter (all columns except system_date and unique_id)
@@ -40,19 +65,3 @@ earliest_non_null_values <- function(data, system_date_col, unique_id_col) {
   # Return the filtered data
   return(filtered_data)
 }
-
-
-## Make fake data
-# data <- data.frame(
-#   unique_id = c("A", "A", "B", "B", "C", "C"),
-#   system_date = c("2022-01-01", "2022-01-02", "2022-01-01", "2022-01-03", "2022-01-02", "2022-01-03"),
-#   col1 = c(NA, 2, 3, 4, 5, 6),
-#   col2 = c(7, NA, 9, 10, 11, 12),
-#   col3 = c(13, 14, NA, 16, 17, 18)
-# )
-
-## Apply function
-# results <- earliest_non_null_values(data, "system_date", "unique_id")
-
-## Review results
-# print(results)

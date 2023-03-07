@@ -1,5 +1,21 @@
-# A script designed to take a workbook and split it into multiple sheets based on desired # of rows
-
+#' Split an Excel workbook into multiple CSV files
+#'
+#' This function takes an Excel workbook and splits it into multiple CSV files, each containing 
+#' the specified number of rows. The output CSV files will be named according to the original 
+#' Excel file name, the current date, and an index indicating which file it is (e.g. 
+#' "examples_20220307_1.csv").
+#'
+#' @param excel_file A string specifying the path to the Excel workbook to split
+#' @param rows_per_csv An integer specifying the number of rows to include in each output CSV file
+#' 
+#' @import readxl
+#' @import readr
+#'
+#' @examples
+#' # Split an example Excel workbook into CSV files containing 1000 rows each
+#' split_excel_to_csv("path/examples.xlsx", 1000)
+#'
+#' @export
 library(readxl)
 library(readr)
 
@@ -18,10 +34,3 @@ split_excel_to_csv <- function(excel_file, rows_per_csv=1000) {
     write_csv(df_list[[i]], paste0(excel_file, '_', format(Sys.Date(), '%Y%m%d'), '_', i, '.csv'))
   }
 }
-
-
-
-# Apply function to data at its path and it will save the output in the same path
-split_excel_to_csv("C:/Users/JChas/OneDrive/Desktop/Output/examples.xlsx", 1000)
-
-

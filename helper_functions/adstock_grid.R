@@ -1,7 +1,18 @@
-# Grid search function to be used with adstock function
-# Searches for optimal parameters
-
-# Load packages
+#' Apply adstock transformation to a time series
+#' 
+#' This function applies an adstock transformation to a given time series using a specified lag and decay rate.
+#' 
+#' @param x a numeric vector representing the time series
+#' @param lag an integer representing the lag for the adstock transformation
+#' @param decay a numeric value representing the decay rate for the adstock transformation
+#' 
+#' @return a numeric vector representing the adstock transformed time series
+#' 
+#' @examples 
+#' x <- c(10, 20, 30, 40, 50)
+#' lag <- 2
+#' decay <- 0.5
+#' adstocked <- adstock(x, lag, decay)
 library(dplyr)
 library(doParallel)
 library(foreach)
@@ -9,8 +20,7 @@ library(memoise)
 library(future)
 library(zoo)
 library(furrr)
-
-# Adstock
+# Save adstock function
 adstock <- function(x, lag, decay) {
   # Apply adstock transformation to a vector x
   n <- length(x)
@@ -22,13 +32,39 @@ adstock <- function(x, lag, decay) {
   }
   adstocked
 }
-
+#' Calculate sum of squared errors between actual and predicted values
+#' 
+#' This function calculates the sum of squared errors between the actual and predicted values of a given time series.
+#' 
+#' @param actual a numeric vector representing the actual values of a time series
+#' @param predicted a numeric vector representing the predicted values of a time series
+#' 
+#' @return a numeric value representing the sum of squared errors
+#' 
+#' @examples 
+#' actual <- c(10, 20, 30, 40, 50)
+#' predicted <- c(11, 19, 31, 39, 51)
+#' sse_value <- sse(actual, predicted)
 # Define a function to calculate the sum of squared errors between the predicted and actual values
 sse <- function(actual, predicted) {
   # Calculate the sum of squared errors between the predicted and actual values
   sum((actual - predicted)^2)
 }
-
+#' Perform grid search for optimal lag and decay values for adstock transformation
+#' 
+#' This function performs a grid search to find the optimal lag and decay values for the adstock transformation of a given time series x. 
+#' 
+#' @param x a numeric vector representing the time series
+#' @param lags a numeric vector of possible lag values to search over
+#' @param decays a numeric vector of possible decay rate values to search over
+#' 
+#' @return a list containing the optimal lag and decay values and their corresponding sum of squared errors
+#' 
+#' @examples 
+#' x <- c(10, 20, 30, 40, 50)
+#' lags <- seq(1, 3, by = 1)
+#' decays <- seq(0.1, 0.9, by = 0.1)
+#' results <- adstock_grid_search(x, lags, decays)
 # Define a function to perform the grid search for optimal lag and decay values
 adstock_grid_search <- function(x, lags, decays) {
   # Perform a grid search to find optimal lag and decay values for adstock transformation
@@ -46,20 +82,3 @@ adstock_grid_search <- function(x, lags, decays) {
   }
   list(lags = lags, decays = decays, sse = sse_values)
 }
-
-## Example usage
-# x <- c(10, 20, 30, 40, 50)
-# lags <- seq(1, 3, by = 1)
-# decays <- seq(0.1, 0.9, by = 0.1)
-# results <- adstock_grid_search(x, lags, decays)
-
-## Print the results of the grid search
-# print(results)
-
-## Find the optimal lag and decay values that minimize SSE
-# min_sse <- min(results$sse)
-# optimal_indices <- which(results$sse == min_sse, arr.ind = TRUE)
-# optimal_lag <- results$lags[optimal_indices[1]]
-# optimal_decay <- results$decays[optimal_indices[2]]
-# cat("Optimal lag:", optimal_lag, "\n")
-# cat("Optimal decay:", optimal_decay, "\n")

@@ -1,11 +1,28 @@
-# Functions to save queried GPT responses into a list with the date
-# See 'ask_gpt()' function, which would be run first to query
-# https://platform.openai.com/docs/api-reference
-
+#' Add character object and date/time to a list of GPT answers
+#'
+#' Functions to save queried GPT responses into a list with the date
+#' 
+#' See 'ask_gpt()' function, which would be run first to query
+#' 
+#' This function takes a character object, saves the current date and time, and adds them both to a list of GPT answers.
+#'
+#' https://platform.openai.com/docs/api-reference
+#'
+#' @param char_obj a character object representing the GPT response
+#'
+#' @return None
+#' @export
+#'
+#' @examples
+#' # result <- ask_gpt("what is 2 + 2?")
+#' # add_to_answers(result)
+#' # str(`gpt_answers_2023-03-04`)
+#' # result <- ask_gpt("what is 2 - 2?")
+#' # add_to_answers(result)
+#' # View(`gpt_answers_2023-03-04`)
 # Load packages
 library(httr)
 library(stringr)
-
 ## Save add_to_answers function
 add_to_answers <- function(char_obj) {
   today_date <- format(Sys.Date(), "%Y-%m-%d") # Get today's date in the desired format
@@ -30,21 +47,3 @@ add_to_answers <- function(char_obj) {
     assign(list_name, list(df), envir = .GlobalEnv)
   }
 }
-
-## Example use
-# result <- ask_gpt("what is 2 + 2?")
-
-## Add answers to a list  - constructs new object with todays date
-# add_to_answers(result)
-
-## View list
-# str(`gpt_answers_2023-03-04`)
-
-## Add a new response
-# result <- ask_gpt("what is 2 - 2?")
-
-## Append list with new data frame for answers to new question
-# add_to_answers(result)
-
-## View list
-# View(`gpt_answers_2023-03-04`)

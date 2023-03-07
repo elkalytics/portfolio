@@ -1,6 +1,52 @@
-# Another approach to study feasibility. This approach focuses on estimating time
-# Made adjustments to handle proportions of 0 and expanded output to see time for each group
-
+#' Calculate expected study duration for each company
+#'
+#' This function takes a data frame containing information about different companies and 
+#' their panel sizes, response rates, and target demographics. It calculates the expected 
+#' number of days it will take to reach the desired sample size for each company, assuming 
+#' a certain proportion of male and female respondents, and a certain proportion of each 
+#' generation (Boomer, GenX, Mill, GenZ).
+#'
+#' @param data A data frame containing information about each company and its panel size, response 
+#' rate, and target demographics. The data frame must contain the following columns:
+#' \itemize{
+#'   \item company: A character string specifying the name of the company
+#'   \item price_per_response: A numeric value specifying the price per response
+#'   \item avg_daily_responses: A numeric value specifying the average number of responses per day
+#'   \item total_panel_size: A numeric value specifying the total panel size for the company
+#'   \item male_percent: A numeric value between 0 and 100 specifying the percentage of male respondents 
+#'     targeted by the company
+#'   \item female_percent: A numeric value between 0 and 100 specifying the percentage of female respondents 
+#'     targeted by the company
+#'   \item boomer_percent: A numeric value between 0 and 100 specifying the percentage of Boomer respondents 
+#'     targeted by the company
+#'   \item genx_percent: A numeric value between 0 and 100 specifying the percentage of GenX respondents 
+#'     targeted by the company
+#'   \item mill_percent: A numeric value between 0 and 100 specifying the percentage of Mill respondents 
+#'     targeted by the company
+#'   \item genz_percent: A numeric value between 0 and 100 specifying the percentage of GenZ respondents 
+#'     targeted by the company
+#' }
+#' @param total_sample_size An integer specifying the total number of responses desired
+#' @param male_prop A numeric value between 0 and 1 specifying the proportion of male respondents desired
+#' @param female_prop A numeric value between 0 and 1 specifying the proportion of female respondents desired
+#' @param boomer_prop A numeric value between 0 and 1 specifying the proportion of Boomer respondents desired
+#' @param genx_prop A numeric value between 0 and 1 specifying the proportion of GenX respondents desired
+#' @param mill_prop A numeric value between 0 and 1 specifying the proportion of Mill respondents desired
+#' @param genz_prop A numeric value between 0 and 1 specifying the proportion of GenZ respondents desired
+#' 
+#' @return A data frame with the expected number of days it will take each company to reach the desired 
+#' sample size, assuming the specified proportions of each demographic group.
+#'
+#' @import readxl
+#' @import readr
+#'
+#' @examples
+#' # Create fake data for six companies with varying panel sizes, response rates, and demographic targets
+#' data <- data.frame(
+#'   company = c("Company 1", "Company 2", "Company 3", "Company 4", "Company 5", "Company 6"),
+#'   price_per_response = c(8, 6, 9, 11, 8, 7),
+#'   avg_daily_responses = c(200, 300, 350, 250, 300, 200),
+#'   total_panel_size = c(10000, 20000, 30000, 15000, 20000, 12000),
 # Save function
 calculate_study_duration <- function(data, total_sample_size, male_prop, female_prop, boomer_prop, genx_prop, mill_prop, genz_prop) {
   
@@ -33,26 +79,3 @@ calculate_study_duration <- function(data, total_sample_size, male_prop, female_
   # Return the data frame with the expected number of days for each company
   return(data)
 }
-
-
-# Construct fake data
-data <- data.frame(
-  company = c("Company 1", "Company 2", "Company 3", "Company 4", "Company 5", "Company 6"),
-  price_per_response = c(8, 6, 9, 11, 8, 7),
-  avg_daily_responses = c(200, 300, 350, 250, 300, 200),
-  total_panel_size = c(10000, 20000, 30000, 15000, 20000, 12000),
-  male_percent = c(0, 45, 40, 41, 46, 61),
-  female_percent = c(100, 55, 60, 59, 54, 39),
-  boomer_percent = c(28, 31, 25, 29, 26, 35),
-  genx_percent = c(27, 30, 28, 29, 20, 28),
-  mill_percent = c(15, 11, 20, 10, 15, 15),
-  genz_percent = c(30, 28, 27, 32, 39, 22)
-)
-
-# Example use 1
-calculate_study_duration(data, 
-                         1000, 0, 1, 0.2, 0.3, 0.2, 0.3) -> results_expanded
-
-# Example use 2
-calculate_study_duration(data, 
-                         2500, .5, .5, 0.5, 0.5, 0.0, 0.0) -> results_expanded_2

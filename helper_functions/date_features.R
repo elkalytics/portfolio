@@ -1,16 +1,27 @@
-# Optimized code for date feature engineering
-# Calculates leap year separately to work on larger data
-# If day value is missing (month year) it assumes 1st of month for all values
-
+#' Create features from dates
+#'
+#' @param date A character vector of dates
+#' @param date_format A character vector specifying the format of the date input, defaults to "%Y-%m-%d"
+#' @return A data frame containing various features extracted from the date input
+#'
+#' @importFrom lubridate parse_date_time format quarter week wday leap_year
+#' @importFrom tis isHoliday isBusinessDay
+#'
+#' @examples 
+#' date_features("2023-03-03")
+#'
+#' date_features("03/03/2023", date_format = "%m/%d/%Y")
+#'
+#' date_features("2023-03")
+#'
+#' @export 
 # Load packages
 library(lubridate)
 library(tidyverse)
 library(tis)
-
 # Pre-calculate days in month and year
 month_lengths <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
 year_lengths <- rep(c(365, 366), each = 365)
-
 # Function for date feature engineering
 date_features <- function(date, date_format = "%Y-%m-%d") {
   
@@ -105,13 +116,3 @@ date_features <- function(date, date_format = "%Y-%m-%d") {
     is_business = as.character(is_business)
   )
 }
-
-## Example on date
-# date_features("2023-03-03")
-
-## Example on date with different format
-# date_features("03/03/2023", date_format = "%m/%d/%Y")
-
-## Example on incomplete date
-# date_features("2023-03")
-

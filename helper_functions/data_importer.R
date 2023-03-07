@@ -1,6 +1,19 @@
+#' Import CSV and XLSX files into a list
+#'
+#' @return A list containing data frames imported from CSV and XLSX files
+#'
+#' @importFrom readxl excel_sheets read_excel
+#' @importFrom readr read_csv
+#'
+#' @examples 
+#' files <- import_files_to_list()
+#' str(files)
+#'
+#' @export 
+# Load packages
 library(readxl)
 library(readr)
-
+# Save function
 import_files_to_list <- function() {
   filenames <- list.files(pattern = "(csv|xlsx)$")
   imported_files <- list()

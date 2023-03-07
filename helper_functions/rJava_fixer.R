@@ -1,3 +1,15 @@
+#' Install and Load rJava Package
+#'
+#' This function checks if the rJava package is already installed, and if not,
+#' tries to set the JAVA_HOME environment variable and install the package from
+#' CRAN or GitHub.
+#'
+#' @import devtools
+#'
+#' @examples
+#' install_and_load_rjava()
+#'
+#' @export
 # Check if rJava is already installed
 if (!requireNamespace("rJava", quietly = TRUE)) {
   
