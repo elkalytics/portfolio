@@ -39,8 +39,7 @@ adstock_vectorized <- function(x, lag, decay) {
 #' actual <- c(10, 20, 30, 40, 50)
 #' predicted <- c(11, 19, 31, 39, 51)
 #' sse_value <- sse(actual, predicted)
-#' 
-#' #' @export
+#' @export
 #' 
 sse <- function(actual, predicted) {
   # Calculate the sum of squared errors between the predicted and actual values
