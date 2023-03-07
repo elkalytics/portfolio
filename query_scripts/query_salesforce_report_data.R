@@ -1,8 +1,16 @@
-# Function to grab data from salesforce report
-# Assumes valid session that is authenticated and has permission
-
+#' Query Salesforce Report Data
+#' 
+#' This function retrieves data from a Salesforce report by querying it in batches of 2000 rows.
+#' 
+#' @param report_id The ID of the report to query.
+#' @param session An authenticated session object that has permission to query the report.
+#' 
+#' @return A data frame containing the report data.
+#' 
+#' @import salesforcer
+#' @export
+# Load package
 library(salesforcer)
-
 # Define function to query report data in batches
 query_report_data <- function(report_id, session) {
   # Initialize variables

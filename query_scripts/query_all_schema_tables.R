@@ -1,6 +1,24 @@
-
+#' Query tables from a schema in a SQL server database
+#'
+#' This function connects to a SQL server database using ODBC, queries all table names in the specified schema, and then queries the data for each table, storing it in a list of data frames with the table name as the list name.
+#'
+#' @param db_connection The connection string for the SQL server database.
+#' @param schema_name The name of the schema to query tables from.
+#'
+#' @return A list of data frames, with each data frame containing the data from a single table in the specified schema.
+#'
+#' @import RODBC
+#'
+#' @examples
+#' db_connection <- "myserver/mydb;UID=myuser;PWD=mypassword"
+#' schema_name <- "dbo"
+#' table_data_list <- query_tables_from_schema(db_connection, schema_name)
+#' print(table_data_list)
+#'
+#' @export
+# Load package
 library(RODBC)
-
+# Save function
 query_tables_from_schema <- function(db_connection, schema_name) {
   # Open the connection to the SQL server
   conn <- odbcConnect(db_connection)
@@ -26,5 +44,3 @@ query_tables_from_schema <- function(db_connection, schema_name) {
   
   return(table_data_list)
 }
-
-

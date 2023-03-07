@@ -1,6 +1,17 @@
-# An R function that queries the metadata from a salesforce report
-# For salesforce API version 52.0 or higher
-
+#' An R function that queries the metadata from a salesforce report
+#' For salesforce API version 52.0 or higher
+#'
+#' @param report_id The ID of the Salesforce report
+#' @param access_token The access token for the Salesforce API
+#'
+#' @return A dataframe containing the metadata fields for the report
+#'
+#' @import httr
+#' @import rjson
+#' @importFrom utils stopForStatus
+#'
+#' @examples
+#' query_salesforce_report_metadata("00Oxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxx")
 query_salesforce_report_metadata <- function(report_id, access_token) {
   library(httr)
   library(rjson)
@@ -32,4 +43,3 @@ query_salesforce_report_metadata <- function(report_id, access_token) {
   
   return(metadata_df)
 }
-

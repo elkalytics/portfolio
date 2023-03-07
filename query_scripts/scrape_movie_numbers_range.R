@@ -1,6 +1,19 @@
-# Scrape boxoffice numbers across multiple dates
+#' Scrape box office numbers across multiple dates
+#'
+#' This function scrapes the box office table for a range of dates from the-numbers.com
+#' using rvest package.
+#'
+#' @param start_date A character string representing the start date in "YYYY/MM/DD" format
+#' @param end_date A character string representing the end date in "YYYY/MM/DD" format
+#' @return A list of data frames containing the box office tables for each date in the range
+#' @examples
+#' scrape_box_office_range("2023/02/01", "2023/02/03")
+#'
+#' @import rvest
+#' @export
+# Load package
 library(rvest)
-
+# Save function
 scrape_box_office_range <- function(start_date, end_date) {
   # Generate vector of dates between start and end dates
   dates <- seq(as.Date(start_date), as.Date(end_date), by = "day")
@@ -22,6 +35,3 @@ scrape_box_office_range <- function(start_date, end_date) {
   
   return(box_office_data)
 }
-
-## Example
-box_office_list <- scrape_box_office_range("2023/02/01", "2023/02/03")

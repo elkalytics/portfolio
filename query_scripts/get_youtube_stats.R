@@ -1,6 +1,19 @@
-# Function to get like and view counts from youtube URL
-# Saves output to a data frame with URL, video ID, system date, views, and likes
-
+#' Get like and view counts from a YouTube URL
+#'
+#' This function retrieves the number of views and likes for a YouTube video from its URL.
+#' The output is saved to a data frame with the video URL, ID, date, views, and likes.
+#'
+#' @param url The URL of the YouTube video to retrieve stats from.
+#'
+#' @return A data frame with the video URL, ID, date, views, and likes.
+#'
+#' @import httr
+#' @import magrittr
+#' @import stringr
+#'
+#' @examples
+#' stats <- get_youtube_stats("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+#' print(stats)
 # Save function
 get_youtube_stats <- function(url) {
   require(httr)
@@ -26,9 +39,3 @@ get_youtube_stats <- function(url) {
   # Return a data frame with the video URL, ID, date, views, and likes
   data.frame(url = url, id = video_id, date = date, views = views, likes = likes)
 }
-
-## Use function
-# stats <- get_youtube_stats("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-
-## View results
-# print(stats)

@@ -1,3 +1,23 @@
+#' Classify column types in a data frame
+#' 
+#' This function takes a data frame as input and returns a vector indicating
+#' the type of each column in the data frame.
+#' 
+#' @param df A data frame
+#' @return A vector indicating the type of each column in the data frame
+#' @examples
+#' df <- data.frame(
+#'   numeric_col = rnorm(100),
+#'   categorical_col = factor(sample(c("A", "B", "C"), 100, replace = TRUE)),
+#'   character_col = sample(LETTERS, 100, replace = TRUE),
+#'   date_col = as.Date("2022-01-01") + 1:100,
+#'   unknown_col = c(rnorm(50), sample(c("X", "Y", "Z"), 50, replace = TRUE))
+#' )
+#' 
+#' classify_columns(df)
+# Set seed for reproducability
+set.seed(123)
+# Save function
 classify_columns <- function(df) {
   column_types <- c()
   for (col in names(df)) {
@@ -35,18 +55,3 @@ classify_columns <- function(df) {
   }
   return (column_types)
 }
-
-
-
-set.seed(123)
-df <- data.frame(
-  numeric_col = rnorm(100),
-  categorical_col = factor(sample(c("A", "B", "C"), 100, replace = TRUE)),
-  character_col = sample(LETTERS, 100, replace = TRUE),
-  date_col = as.Date("2022-01-01") + 1:100,
-  unknown_col = c(rnorm(50), sample(c("X", "Y", "Z"), 50, replace = TRUE))
-)
-
-
-classify_columns(df)
-

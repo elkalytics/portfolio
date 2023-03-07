@@ -1,3 +1,21 @@
+#' Query statistics for numeric columns in a MySQL database table
+#'
+#' This code connects to a MySQL database using RMySQL, constructs a SQL query to retrieve statistics for all numeric columns in the specified table, executes the query, and returns the results as a data frame.
+#'
+#' @import RMySQL
+#'
+#' @examples
+#' dsn <- "your_dsn_name"
+#' user <- "your_username"
+#' password <- "your_password"
+#' con <- dbConnect(MySQL(), user=user, password=password, dbname=dsn)
+#' table_name <- "your_table_name"
+#' sql_query <- paste0("SELECT COLUMN_NAME, AVG(CASE WHEN ", table_name, ".`COLUMN_NAME` REGEXP '^[0-9]+\\.?[0-9]*$' THEN CAST(", table_name, ".`COLUMN_NAME` AS DECIMAL) ELSE NULL END) AS mean, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY CASE WHEN ", table_name, ".`COLUMN_NAME` REGEXP '^[0-9]+\\.?[0-9]*$' THEN CAST(", table_name, ".`COLUMN_NAME` AS DECIMAL) ELSE NULL END) AS median, SUBSTRING_INDEX(GROUP_CONCAT(CASE WHEN ", table_name, ".`COLUMN_NAME` REGEXP '^[0-9]+\\.?[0-9]*$' THEN CAST(", table_name, ".`COLUMN_NAME` AS DECIMAL) END ORDER BY ", table_name, ".`COLUMN_NAME` ASC SEPARATOR ','), ',', 1) AS mode, MAX(CASE WHEN ", table_name, ".`COLUMN_NAME` REGEXP '^[0-9]+\\.?[0-9]*$' THEN CAST(", table_name, ".`COLUMN_NAME` AS DECIMAL) ELSE NULL END) AS max, MIN(CASE WHEN ", table_name, ".`COLUMN_NAME` REGEXP '^[0-9]+\\.?[0-9]*$' THEN CAST(", table_name, ".`COLUMN_NAME` AS DECIMAL) ELSE NULL END) AS min, COUNT(CASE WHEN ", table_name, ".`COLUMN_NAME` IS NOT NULL THEN 1 ELSE NULL END) AS count, COUNT(CASE WHEN ", table_name, ".`COLUMN_NAME` IS NOT NULL THEN 1 ELSE NULL END) / COUNT(*) AS response_percentage FROM information_schema.columns JOIN ", table_name, " ON information_schema.columns.TABLE_SCHEMA=DATABASE() AND information_schema.columns.TABLE_NAME='", table_name, "' AND information_schema.columns.COLUMN_NAME = '", table_name, "`.`COLUMN_NAME` WHERE information_schema.columns.DATA_TYPE IN ('decimal', 'int', 'float', 'double') GROUP BY COLUMN_NAME")
+#' results <- dbGetQuery(con, sql_query)
+#' dbDisconnect(con)
+#' print(results)
+#'
+# Load package
 library(RMySQL)
 
 # Specify database connection details

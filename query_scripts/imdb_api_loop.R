@@ -1,19 +1,28 @@
-# Function to loop imdb title search through list 10 at a time
-# Results compile into "all_results"
-
+#' Search for movie data on IMDb
+#'
+#' This function loops through a list of movie titles, searches for their data on IMDb using the imdbapi package, and combines the results into a single data frame.
+#'
+#' @param api_key Your IMDb API key. Get one at https://imdb-api.com/.
+#' @param movies A vector of movie titles to search for on IMDb.
+#'
+#' @return A data frame containing movie data for all the movies searched.
+#'
+#' @import imdbapi
+#'
+#' @examples
+#' api_key <- "YOUR-KEY"
+#' movies <- c("The Godfather", "The Shawshank Redemption", "The Dark Knight")
+#' all_results <- imdb_title_search(api_key, movies)
+#' print(all_results)
+#' 
+#' # Combine the list of data frames into a single data frame
+#' all_results <- do.call(rbind, movie_data_list)
+#' 
+#' # Remove duplicates based on imdbID
+#' all_results <- all_results[!duplicated(all_results$imdbID), ]
+#'
+#' @export
 library(imdbapi)
-
-# Replace "your-api-key" with your actual API key
-api_key <- "YOUR-KEY"
-
-# Create a vector of movie titles
-movies <- c("The Godfather", "The Shawshank Redemption", "The Dark Knight", "The Lord of the Rings: The Fellowship of the Ring", "Forrest Gump",
-            "Inception", "The Matrix", "Pulp Fiction", "Fight Club", "The Silence of the Lambs",
-            "The Usual Suspects", "Goodfellas", "Se7en", "The Green Mile", "The Prestige",
-            "The Departed", "Gladiator", "The Lion King", "Jurassic Park", "Star Wars: Episode IV - A New Hope",
-            "E.T. the Extra-Terrestrial", "Back to the Future", "Indiana Jones and the Raiders of the Lost Ark", "Jaws",
-            "The Terminator", "Alien", "Blade Runner", "The Shining", "A Clockwork Orange")
-
 # Loop through the movies and retrieve their data
 movie_data_list <- list()
 for (i in seq(1, length(movies), 10)) {
@@ -29,10 +38,3 @@ for (i in seq(1, length(movies), 10)) {
   # Add the data frame to the list of data frames
   movie_data_list[[length(movie_data_list)+1]] <- movie_df
 }
-
-# Combine the list of data frames into a single data frame
-all_results <- do.call(rbind, movie_data_list)
-
-# Remove duplicates based on imdbID
-all_results <- all_results[!duplicated(all_results$imdbID), ]
-
