@@ -11,6 +11,8 @@
 #' df <- data.frame(name = c("John", "Mary", "Mike", "Sue", "Alex"),
 #'                  phone = c("(555) 555-5555", "6555544", "537-443-2212", "5212229983", "(555)312"))
 #' check_phone_format(df, "phone")
+#' @export
+#' 
 check_phone_format <- function(data, colname) {
   
   # extract the specified column from the data frame

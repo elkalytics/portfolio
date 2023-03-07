@@ -65,6 +65,8 @@ sse <- function(actual, predicted) {
 #' lags <- seq(1, 3, by = 1)
 #' decays <- seq(0.1, 0.9, by = 0.1)
 #' results <- adstock_grid_search(x, lags, decays)
+#' @export
+#'
 # Define a function to perform the grid search for optimal lag and decay values
 adstock_grid_search <- function(x, lags, decays) {
   # Perform a grid search to find optimal lag and decay values for adstock transformation

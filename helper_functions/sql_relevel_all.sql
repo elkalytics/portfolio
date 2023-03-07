@@ -1,5 +1,4 @@
 -- Relevel all categorical variables in a table
-
 SELECT 
   CASE 
     WHEN category_count/total_count <= 0.05 THEN CONCAT(column_name, '_relvl')

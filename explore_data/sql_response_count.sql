@@ -1,7 +1,7 @@
-
 -- SQL query a table to determine if there is no response (0), a single value (1), or multiple values
 -- Script will count the number of responses if more than one
 
+-- Define a common table expression (CTE) named cte that aggregates the count of distinct values for each column_name in table_name that is not null
 WITH cte AS (
   SELECT 
     column_name,
@@ -13,6 +13,8 @@ WITH cte AS (
   GROUP BY 
     column_name
 )
+
+-- Select the column_name and the outcome based on the value_count from the cte
 SELECT 
   column_name,
   CASE 
