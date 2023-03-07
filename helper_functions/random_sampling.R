@@ -1,5 +1,27 @@
-# Sampling function for simple and stratified with/without replacements
-
+#' Random Sampling
+#'
+#' This function performs simple or stratified random sampling with or without replacement
+#' from a given data frame.
+#'
+#' @param data A data frame
+#' @param size An integer indicating the number of rows to sample
+#' @param strata A string indicating the name of the variable to use as the stratum,
+#'   or NULL for simple random sampling (default = NULL)
+#' @param with_replacement A logical indicating whether to sample with replacement (default = FALSE)
+#'
+#' @return A data frame containing the sampled rows
+#'
+#' @examples
+#' # Simple random sampling from the 'iris' dataset
+#' simple_sample <- random_sampling(iris, 50)
+#' head(simple_sample)
+#'
+#' # Stratified random sampling from the 'iris' dataset
+#' stratified_sample <- random_sampling(iris, 25, strata = "Species")
+#' head(stratified_sample)
+#'
+#' @export
+# Save function
 random_sampling <- function(data, size, strata = NULL, with_replacement = FALSE) {
   if (!is.null(strata)) {
     # Stratified random sampling
@@ -22,23 +44,3 @@ random_sampling <- function(data, size, strata = NULL, with_replacement = FALSE)
     }
   }
 }
-
-## Sample 50 rows from the 'iris' dataset
-# simple_sample <- random_sampling(iris, 50)
-# View results
-# head(simple_sample)
-
-## Sample 100 rows from the 'mtcars' dataset with replacement
-# replacement_sample <- random_sampling(mtcars, 100, with_replacement = TRUE)
-# View results
-# head(replacement_sample)
-
-## Stratified sample 25 rows from each species of the 'iris' dataset
-# stratified_sample <- random_sampling(iris, 25, strata = "Species")
-# View results
-# head(stratified_sample)
-
-## Sample 100 rows from the 'mtcars' dataset with replacement
-# stratified_replacement_sample <- random_sampling(iris, 50, strata = "Species", with_replacement = TRUE)
-# View results
-# head(stratified_replacement_sample)

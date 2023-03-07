@@ -1,11 +1,36 @@
-# Function to look up address details
-# Still under development - Note OSM is free but lacks info, test 'opencage' API
-
+#' Look up address details
+#'
+#' This function takes an address as input and returns a data frame containing
+#' various details about the address, including the street, city, county, state,
+#' ZIP code, FIPS code, latitude, and longitude. If possible, the function also
+#' determines the level of detail for map visualization (either the state or county
+#' FIPS code) and returns the corresponding shapefile. The function tries to geocode
+#' the address using the `geocode` function from the `ggmap` package. If the `geocode`
+#' function is unable to find a match for the address, the function tries again with
+#' the `source` parameter set to "google". If the `google` source is still unable to
+#' find a match, the function parses the address and tries geocoding again. If the
+#' address still cannot be geocoded, the function returns an empty data frame.
+#'
+#' @param address A character string representing the address to look up
+#'
+#' @return A data frame containing various details about the address, including the
+#' street, city, county, state, ZIP code, FIPS code, latitude, and longitude, as well
+#' as the level of detail for map visualization (if available) and the source used to
+#' obtain the details. If a shapefile is available for the address, the data frame also
+#' includes a `shapefile` column containing the path to the shapefile.
+#'
+#' @importFrom ggmap geocode
+#' @importFrom stringr str_to_lower gsub str_extract
+#' @importFrom tigris state_shapefile county_shapefile
+#' @export
+#'
+#' @examples
+#' address <- "1600 Pennsylvania Avenue NW, Washington, DC 20500"
+#' get_address_details(address) # Returns a data frame with details for the White House
 # Load packages
 library(ggmap)
 library(stringr)
 library(tigris)
-
 get_address_details <- function(address) {
   
   # Initializing variables to store the details

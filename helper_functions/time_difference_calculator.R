@@ -1,5 +1,23 @@
-# Convert time stamps to different units
-
+#' Convert time stamps to different units
+#'
+#' This function takes two time stamps and calculates the difference between
+#' them in various units such as seconds, minutes, hours, days, weeks, months,
+#' quarters, and years.
+#'
+#' @param start_time A character string of the starting time in any format that
+#' can be parsed by the as.POSIXct function.
+#'
+#' @param end_time A character string of the ending time in any format that can
+#' be parsed by the as.POSIXct function.
+#'
+#' @return A named vector of time differences.
+#'
+#' @examples
+#' timestamp1 <- "2023-02-01 09:30:00"
+#' timestamp2 <- "2023-02-22 16:45:00"
+#' time_difference_calculator(timestamp1, timestamp2)
+#'
+#' @export
 # Save function
 time_difference_calculator <- function(start_time, end_time) {
   # Convert start and end times to POSIXct format
@@ -64,17 +82,3 @@ time_difference_calculator <- function(start_time, end_time) {
               months = months, quarters = quarters, years = years)
   return(result)
 }
-
-
-## Generate example timestamps in different formats
-# timestamp1 <- "2023-02-01 09:30:00"
-# timestamp2 <- "2023-02-22 16:45:00"
-# timestamp3 <- "01/02/2023 09:30:00"
-# timestamp4 <- "22/02/2023 16:45:00"
-# timestamp5 <- "2023-02-01 09:30"
-# timestamp6 <- "2023-02-22 04:45 PM"
-
-## Call the time_difference function on the example timestamps
-# time_difference_calculator(timestamp1, timestamp2)
-# time_difference_calculator(timestamp3, timestamp4)
-# time_difference_calculator(timestamp5, timestamp6)

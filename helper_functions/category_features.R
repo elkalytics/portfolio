@@ -1,5 +1,15 @@
-# Construct new categorical variables
-
+#' Create categorical variables from numeric variables in a data frame
+#'
+#' This function takes a data frame and creates new categorical variables from every numeric variable in the data frame. For each numeric variable, new categorical variables are created by dividing the range of values into 2 through 10 equally-sized categories. The categories are represented as factor variables with names that include the name of the original variable and a group number (e.g., "x_Group1", "x_Group2", ..., "x_Group10").
+#'
+#' @param data a data frame containing numeric variables for which to create categorical variables
+#'
+#' @return a data frame with new categorical variables for each numeric variable in the input data frame
+#'
+#' @examples
+#' data <- data.frame(x = rnorm(100), y = rnorm(100), z = runif(100), w = rpois(100, 1))
+#' data <- create_categories(data)
+#' head(data)
 create_categories <- function(data) {
   for (var in names(data)[sapply(data, is.numeric)]) {
     for (n in 2:10) {
@@ -10,13 +20,3 @@ create_categories <- function(data) {
   }
   return(data)
 }
-
-
-## create a sample data set
-# data <- data.frame(x = rnorm(100), y = rnorm(100), z = runif(100), w = rpois(100, 1))
-
-## create new variables for 2 through 10 categories of every numeric variable
-# data <- create_categories(data)
-
-## view the updated data frame
-# head(data)

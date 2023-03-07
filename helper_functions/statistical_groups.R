@@ -1,6 +1,29 @@
-# Function for feature engineering
-# Converts numeric fields into categorical variables
-
+#' Converts numeric fields into categorical variables
+#'
+#' This function takes a data frame as input and converts all numeric fields
+#' into categorical variables by creating 13 new variables for each one.
+#' The 13 new variables are created using different methods like median split,
+#' mean split, interquartile range split, proportional groups of 2, 3, 4, and 5,
+#' top 25%, bottom 25%, top or bottom 25%, middle 50%, and z-score above or
+#' below a certain threshold.
+#'
+#' @param df A data frame containing numeric variables.
+#'
+#' @return A data frame with 13 new variables for each numeric variable in the
+#' original data frame.
+#'
+#' @examples
+#' set.seed(123)
+#' df <- data.frame(
+#'   x = rnorm(100),
+#'   y = rnorm(100, mean = 5, sd = 2),
+#'   z = runif(100, min = 0, max = 10)
+#' )
+#' categorical_vars(df) -> results
+#' head(results)
+#'
+#' @export
+# Save function
 categorical_vars <- function(df) {
   # identify numeric variables
   num_cols <- sapply(df, is.numeric)
@@ -58,16 +81,3 @@ categorical_vars <- function(df) {
   
   return(df)
 }
-
-
-## Create fake data
-# set.seed(123)
-# df <- data.frame(
-#   x = rnorm(100),
-#   y = rnorm(100, mean = 5, sd = 2),
-#   z = runif(100, min = 0, max = 10)
-# )
-
-# Apply function
-# categorical_vars(df) -> results
-# head(results)

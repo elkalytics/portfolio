@@ -1,5 +1,23 @@
-# Function to quickly find columns to join on
-
+#' Find common columns between data frames
+#'
+#' This function takes a list of data frames and returns a data frame indicating which
+#' columns are present in each pair of data frames.
+#'
+#' @param df_list A list of data frames
+#'
+#' @return A data frame with three columns: Data_Frame (the indices of the data frames
+#' that were compared), Variable (the name of the common variable), and Common
+#' (whether or not the variable is present in both data frames)
+#'
+#' @importFrom dplyr bind_rows colnames
+#' @export
+#'
+#' @examples
+#' df1 <- data.frame(ID = 1:5, Name = c("John", "Mary", "Bob", "Alice", "Tom"))
+#' df2 <- data.frame(ID = 3:7, Age = c(25, 32, 46, 18, 57))
+#' df3 <- data.frame(ID = 2:6, Gender = c("M", "F", "M", "F", "M"))
+#' df_list <- list(df1, df2, df3)
+#' find_ids(df_list) # Returns a data frame
 # Save function
 find_ids <- function(df_list) {
   library(dplyr)
@@ -39,18 +57,3 @@ find_ids <- function(df_list) {
   # Return the result data frame
   return(result_df)
 }
-
-## Create some example data frames
-# df1 <- data.frame(ID = 1:5, Name = c("John", "Mary", "Bob", "Alice", "Tom"))
-# df2 <- data.frame(ID = 3:7, Age = c(25, 32, 46, 18, 57))
-# df3 <- data.frame(ID = 2:6, Gender = c("M", "F", "M", "F", "M"))
-
-## Create a list of the data frames
-# df_list <- list(df1, df2, df3)
-
-## Call the compare_columns function
-# find_ids(df_list) -> results
-
-## Review results 
-# head(results)
-
